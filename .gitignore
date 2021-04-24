@@ -1,2 +1,8 @@
 ~$*
+<<<<<<< HEAD
 /bin/
+=======
+.classpath
+.project
+
+>>>>>>> e534457499d3a506d16b1d6169dad0a2669f77cf
