@@ -1,15 +1,5 @@
-## Getting Started
+# TPO Intro a la Orientacion a Objetos
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+## Link al [Google Docs](https://docs.google.com/document/d/168SK6xl012G9OQlX5LzxIJ1oh1daskfZ4AAapSr3Lrc/edit)
 
-## Folder Structure
-
-The workspace contains two folders by default, where:
-- `src`: the folder to maintain 
-- `lib`: the folder to maintain dependencies
-
-## Dependency Management
-
-The `JAVA DEPENDENCIES` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-pack/blob/master/release-notes/v0.9.0.md#work-with-jar-files-directly).
-
-Esto es para probar el bot de GitHub, hello world
+Puto el que lo lea
