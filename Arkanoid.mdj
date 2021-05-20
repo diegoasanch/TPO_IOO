@@ -8349,9 +8349,9 @@
 														"$ref": "AAAAAAF5fTE8ZNAT4Fw="
 													},
 													"font": "Arial;13;0",
-													"left": 488,
+													"left": 486,
 													"top": 224,
-													"width": 219.6416015625,
+													"width": 222.52978515625,
 													"height": 13,
 													"alpha": 1.7992919404325802,
 													"distance": 88.29496021857646,
@@ -8359,7 +8359,7 @@
 														"$ref": "AAAAAAF5fTE8ZNAUWa4="
 													},
 													"edgePosition": 1,
-													"text": "[if sePuedeMover] : cambiarPosicion()"
+													"text": "[si sePuedeMover] : cambiarPosicion()"
 												},
 												{
 													"_type": "EdgeLabelView",
@@ -8513,7 +8513,7 @@
 									"signature": {
 										"$ref": "AAAAAAF5HU9sn5Kovk8="
 									},
-									"guard": "if sePuedeMover"
+									"guard": "si sePuedeMover"
 								}
 							],
 							"participants": [
