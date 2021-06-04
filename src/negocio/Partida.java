@@ -1,6 +1,5 @@
 package negocio;
 
-import java.util.*;
 import java.util.Date;
 
 public class Partida {
@@ -31,6 +30,7 @@ public class Partida {
     }
 
     public void jugar() {
+        tablero.moverElementos();
     }
 
     public void sumarPuntos(int puntos) {
@@ -67,5 +67,9 @@ public class Partida {
     private long getCurrentTime() {
         Date fecha = new Date();
         return fecha.getTime();
+    }
+
+    public void modificarVidas(int nuevasVidas) {
+        this.vida += nuevasVidas;
     }
 }

@@ -20,7 +20,7 @@ public class Tablero {
         crearBarra();
         crearBola();
     }
-    
+
     public void agregarFilas() {
         this.filas = new ArrayList<Fila>(5);
         int puntajes[] = new int[]{ 50, 40, 30, 20, 10 };
@@ -31,29 +31,89 @@ public class Tablero {
 
     public void crearBola() {
         int VEL_INICIAL = 1;
-        this.bola = new Bola(VEL_INICIAL);
-    }
-    
-    public void crearBarra() {
-        this.barra = new Barra();
+        int medioTablero = this.dimension_x / 2;
+
+        this.bola = new Bola(
+            medioTablero,
+            this.dimension_y,
+            15,
+            15,
+            VEL_INICIAL,
+            this.dimension_x,
+            this.dimension_y
+        );
     }
 
-    public void calcularPos() {
-        
+    public void crearBarra() {
+        int medioTablero = this.dimension_x / 2;
+        this.barra = new Barra(
+            medioTablero,
+            this.dimension_y,
+            100,
+            20,
+            this.dimension_x
+        );
     }
-    
+
+    public void moverElementos() {
+        if (bola.detectarChoquePared())
+            bola.rebotarPared();
+
+        else if (bola.detectarLimiteInferiorTablero()) {
+            if (barra.detectarColision( // Rebota la bola con la barra
+                bola.getPosicionX(),
+                bola.getPosicionY(),
+                bola.getTamanioX(),
+                bola.getTamanioY()
+                )
+            ) {
+                String mitadBarra = barra.mitadDerecha(bola.getPosicionX()) ? "derecha" : "izquierda";
+                bola.rebotar("barra", mitadBarra);
+            }
+            else { // La bola se sale del tablero
+                partida.modificarVidas(-1);
+            }
+        }
+        else if (detectarLadrilloRoto()) { // La bola esta en algun punto central del tablero
+            bola.rebotar("ladrillo", "");
+            romperLadrillo();
+        }
+        bola.mover();
+    }
+
+
+    public void calcularPos() {
+
+    }
+
     public boolean detectarLadrilloRoto() {
-        
+        Fila filaActual = buscarFila(bola.getPosicionY()); // Si colisiona con alguno
+        if (filaActual != null) {
+            return filaActual.detectarLadrilloRoto(bola.getPosicionX(), bola.getPosicionY(), bola.getTamanioX());
+        }
         return false;
     }
 
     public Fila buscarFila(int posY) {
-        return null;
+        Fila resultado = null;
+        for (Fila fila : this.filas) {
+            if (fila.soyLaFila(posY)) {
+                resultado = fila;
+                break;
+            }
+        }
+        return resultado;
     }
 
-    private boolean detectarSaleDeTablero() {
-
-        return false;
+    /**
+     * Cambia el estado del ladrillo a roto y suma los puntos correspondientes
+     * a la partida
+     */
+    private void romperLadrillo() {
+        Fila aRomper = buscarFila(bola.getPosicionY());
+        if (aRomper != null) {
+            aRomper.romperLadrillo(bola.getPosicionX());
+            partida.sumarPuntos(aRomper.getPuntaje());
+        }
     }
-
 }
