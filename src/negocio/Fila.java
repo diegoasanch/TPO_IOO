@@ -5,13 +5,13 @@ import java.util.*;
 public class Fila {
 
     private int puntaje;
-    private int posicion; // De arriba a abajo
+    private int indice; // De arriba a abajo
     private int dimension_y;
     private ArrayList<Ladrillo> ladrillos;
 
     public Fila(int puntaje, int posicion) {
         this.puntaje = puntaje;
-        this.posicion = posicion;
+        this.indice = posicion;
         this.dimension_y = 50; //TODO: ver tamaño
 
         agregarLadrillos();
@@ -22,14 +22,17 @@ public class Fila {
         int anchoLadrillo = 60;
         int margen = 15;
 
+        final int MOV_X_Y = 0;
+
         for (int i = 0; i < 5; i++)
             ladrillos.add(new Ladrillo(
                 (anchoLadrillo * i) + margen,
-                this.posicion,
+                this.indice,
                 anchoLadrillo,
                 this.dimension_y,
-                0,
-                0
+                MOV_X_Y,
+                MOV_X_Y,
+                i // indice
             ));
     }
 
@@ -41,7 +44,7 @@ public class Fila {
     }
 
     public boolean soyLaFila(int posY) {
-        return posY >= posicion && posY <= posicion + dimension_y;
+        return posY >= indice && posY <= indice + dimension_y;
     }
 
     private Ladrillo buscarLadrillo(int posX) {

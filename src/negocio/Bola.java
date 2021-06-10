@@ -63,19 +63,15 @@ public class Bola extends ObjetoPosicionado {
         return resultado;
     }
 
-    public void rebotar(String objetoDeRebote, String posicionImpacto) {
-
-    }
-
     public boolean detectarLimiteInferiorTablero() {
         return this.posicionY >= this.maxY;
     }
 
-    private void rebotarLadrillo() {
+    public void rebotarLadrillo() {
 
     }
 
-    private void rebotarBarra(boolean mitadDerecha) {
+    public void rebotarBarra(boolean mitadDerecha) {
         if (mitadDerecha) {
 
         }

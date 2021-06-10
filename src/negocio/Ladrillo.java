@@ -3,10 +3,12 @@ package negocio;
 public class Ladrillo extends ObjetoPosicionado {
 
     private boolean estoyRoto;
+    private int indice;
 
-    public Ladrillo(int posicionX, int posicionY, int tamanioX, int tamanioY, int maxX, int maxY) {
+    public Ladrillo(int posicionX, int posicionY, int tamanioX, int tamanioY, int maxX, int maxY, int indice) {
         super(posicionX, posicionY, tamanioX, tamanioY, maxX, maxY);
         this.estoyRoto = false;
+        this.indice = indice;
     }
 
     public void destruccionLadrillo() {

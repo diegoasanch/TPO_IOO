@@ -28,14 +28,6 @@ public abstract class ObjetoPosicionado {
         posicionY += increY;
     }
 
-    protected int[] obtenerPosicion() {
-        return new int[] {posicionX, posicionY};
-    }
-
-    protected int[] obtenerDimensiones() {
-        return new int[] {tamanioX, tamanioY};
-    }
-
     protected boolean seSobrePonen(int min_a, int max_a, int min_b, int max_b) {
         return min_a <= max_b && max_a >= min_b;
     }
@@ -57,5 +49,21 @@ public abstract class ObjetoPosicionado {
 
     public int getTamanioY() {
         return tamanioY;
+    }
+
+    public int getMinX() {
+        return minX;
+    }
+
+    public int getMaxX() {
+        return maxX;
+    }
+
+    public int getMinY() {
+        return minY;
+    }
+
+    public int getMaxY() {
+        return maxY;
     }
 }
