@@ -67,15 +67,15 @@ public class Tablero {
                 bola.getTamanioY()
                 )
             ) {
-                String mitadBarra = barra.mitadDerecha(bola.getPosicionX()) ? "derecha" : "izquierda";
-                bola.rebotar("barra", mitadBarra);
+                boolean esMitadDerecha = barra.mitadDerecha(bola.getPosicionX());
+                bola.rebotarBarra(esMitadDerecha);
             }
             else { // La bola se sale del tablero
-                partida.modificarVidas(-1);
+                partida.pierdeVida();
             }
         }
         else if (detectarLadrilloRoto()) { // La bola esta en algun punto central del tablero
-            bola.rebotar("ladrillo", "");
+            bola.rebotarLadrillo();
             romperLadrillo();
         }
         bola.mover();

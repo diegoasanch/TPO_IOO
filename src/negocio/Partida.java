@@ -69,7 +69,11 @@ public class Partida {
         return fecha.getTime();
     }
 
-    public void modificarVidas(int nuevasVidas) {
+    private void modificarVidas(int nuevasVidas) {
         this.vida += nuevasVidas;
+    }
+
+    public void pierdeVida() {
+        modificarVidas(-1);
     }
 }

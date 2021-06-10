@@ -25,7 +25,8 @@ public class Bola extends ObjetoPosicionado {
     }
 
     public void mover() {
-        this.cambiarPosicion(calcMovimientoX(), calcMovimientoY());
+        this.posicionX += calcMovimientoX();
+        this.posicionY += calcMovimientoY();
     }
 
     private int calcMovimientoX() {
@@ -68,26 +69,20 @@ public class Bola extends ObjetoPosicionado {
     }
 
     public void rebotarLadrillo() {
-
+        int nuevoAngulo = numeroRandom(180+85, 180+95);
+        this.sentido = nuevoAngulo;
     }
 
     public void rebotarBarra(boolean mitadDerecha) {
+        int anguloEntrada = anguloDeEntradaBarra();
+        int nuevoAngulo;
         if (mitadDerecha) {
-
+            nuevoAngulo = 60 + anguloEntrada;
         }
         else { // Mitad Izquierda
-
+            nuevoAngulo = 90 + anguloEntrada;
         }
-    }
-
-    public boolean detectarColision(int posX, int posY, int tamanio_x, int tamanio_y) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public boolean detectarColision(int posX, int posY, int tamanio) {
-        return detectarColision(posX, posY, tamanio, tamanio);
+        this.sentido = nuevoAngulo;
     }
 
     public boolean detectarChoquePared() {
@@ -96,5 +91,18 @@ public class Bola extends ObjetoPosicionado {
             || this.posicionX >= this.maxX
             || this.posicionY >= this.minY
         );
+    }
+
+    private int numeroRandom(int desde, int hasta) {
+        return (int) Math.round(Math.random() * (hasta-desde+1) + desde);
+    }
+
+    /**
+     * Angulo de entrada a la barra en relacion al eje -Y (270°)
+     * @return Entero entre -90 y 90 si la bola se desplaza hacia abajo, sino
+     * el rango es -180 y 180
+     */
+    private int anguloDeEntradaBarra() {
+        return sentido - 270;
     }
 }

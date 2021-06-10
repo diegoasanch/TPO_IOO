@@ -1,6 +1,6 @@
 package negocio;
 
-public abstract class ObjetoPosicionado {
+public class ObjetoPosicionado {
 
     protected int posicionX;
     protected int posicionY;
@@ -23,17 +23,29 @@ public abstract class ObjetoPosicionado {
         this.maxY = maxY - tamanioY;
     }
 
-    protected void cambiarPosicion(int increX, int increY) {
-        posicionX += increX;
-        posicionY += increY;
-    }
-
     protected boolean seSobrePonen(int min_a, int max_a, int min_b, int max_b) {
         return min_a <= max_b && max_a >= min_b;
     }
 
-    public abstract boolean detectarColision(int posX, int posY, int tamanio_x, int tamanio_y);
-    public abstract boolean detectarColision(int posX, int posY, int tamanio);
+    public boolean detectarColision(int posX, int posY, int tamanioX, int tamanioY) {
+        boolean colisionX = seSobrePonen(
+            this.posicionX,
+            this.posicionX + this.tamanioX,
+            posX,
+            posX + tamanioX
+        );
+        boolean colisionY = seSobrePonen(
+            this.posicionY,
+            this.posicionY + this.tamanioY,
+            posY,
+            posY + tamanioY
+        );
+        return colisionX && colisionY;
+    }
+
+    public boolean detectarColision(int posX, int posY, int tamanio) {
+        return detectarColision(posX, posY, tamanio, tamanio);
+    }
 
     public int getPosicionX() {
         return posicionX;

@@ -18,7 +18,7 @@ public class Barra extends ObjetoPosicionado {
             else
                 movimiento_x = +1;
 
-            this.cambiarPosicion(movimiento_x, 0);
+            this.posicionX += movimiento_x;
         }
     }
 
@@ -31,28 +31,6 @@ public class Barra extends ObjetoPosicionado {
     private void asignarDimensiones(int minX, int maxX) {
         this.minX = minX;
         this.maxX = maxX;
-    }
-
-    @Override
-    public boolean detectarColision(int posX, int posY, int tamanioX, int tamanioY) {
-        boolean colisionX = seSobrePonen(
-            this.posicionX,
-            this.posicionX + this.tamanioX,
-            posX,
-            posX + tamanioX
-        );
-        boolean colisionY = seSobrePonen(
-            this.posicionY,
-            this.posicionY + this.tamanioY,
-            posY,
-            posY + tamanioY
-        );
-        return colisionX && colisionY;
-    }
-
-    @Override
-    public boolean detectarColision(int posX, int posY, int tamanio) {
-        return detectarColision(posX, posY, tamanio, tamanio);
     }
 
     public boolean mitadDerecha(int posXCentro) {
