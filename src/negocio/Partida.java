@@ -7,30 +7,33 @@ public class Partida {
     private int nivel;
     private int vida;
     private int puntos;
-    private int duracion;
     private boolean estadoJugando;
     private long inicio;
 
     private Tablero tablero;
-    private TopTwenty leaderboard;
 
     public Partida() {
         this.nivel = 1;
         this.vida = 3;
         this.puntos = 0;
-        this.duracion = 0;
         this.estadoJugando = false;
-
-        this.leaderboard = new TopTwenty(); // TODO: Implementar TopTwenty con modelo de estado global "Singleton"
     }
 
     public void iniciarJuego() {
-        tablero = new Tablero();
+        tablero = new Tablero(nivel);
         inicio = getCurrentTime();
     }
 
     public void jugar() {
         tablero.moverElementos();
+
+        if (tablero.seRompieronTodosLosLadrillos())
+            subirNivel();
+    }
+
+    public void subirNivel() {
+        nivel++;
+        modificarVidas(1);
     }
 
     public void sumarPuntos(int puntos) {
@@ -41,23 +44,19 @@ public class Partida {
         return estadoJugando;
     }
 
-    public void pausar() { // TODO: VER esto que esta medio redundante
-        cambiarEstado();
+    public void pausar() {
+        estadoJugando = false;
     }
 
     public void play() {
-        cambiarEstado();
-    }
-
-    private void cambiarEstado() {
-        estadoJugando = !estadoJugando;
+        estadoJugando = true;
     }
 
     public int obtienePuntajeTotal() {
         return puntos;
     }
 
-    public int obtieneDuracionPartida() {
+    public int calcularDuracionPartida() {
         long ahora = getCurrentTime();
         long nanoSegundos = ahora - inicio;
         int segundos = (int) nanoSegundos / 1_000_000_000;

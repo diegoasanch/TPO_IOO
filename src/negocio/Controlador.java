@@ -8,18 +8,35 @@ public class Controlador {
     // private ArrayList<Partida> partidas;
     private Partida partida;
     private ArrayList<Barra> barras;
+    private static Controlador instancia;
 
-    public Controlador() {
+    private Controlador() {
         // this.partidas = new ArrayList<Partida>();
         // this.partidas.add(new Partida());
         this.partida = new Partida();
     }
 
-    public void iniciarJuego(int nivel) {
-        // Iniciar intervalo de juego
-        // Si partida.estaJugando()
-        //     partida.jugar()
-        // sino esta en pausa
+    public static Controlador getInstance() {
+        if (instancia == null)
+            instancia = new Controlador();
+        return instancia;
+    }
+
+    public void iniciarJuego() {
+        partida.iniciarJuego();
+    }
+
+    public void jugar() {
+        if (!partida.estaJugando())
+            partida.jugar();
+    }
+
+    public void play() {|
+        partida.play();
+    }
+
+    public void pausar() {
+        partida.pausar();
     }
 
     public void moverBarra(String direccion) {
@@ -28,7 +45,8 @@ public class Controlador {
     public void ingresarNombre(String nombre) {
     }
 
-    public void pausar() {
+    public void renaudarJuego(){
+        partida.play();
+        partida.jugar();
     }
-
 }

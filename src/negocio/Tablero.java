@@ -10,15 +10,15 @@ public class Tablero {
     private Partida partida;
     private Barra barra;
     private Bola bola;
-    private ArrayList<Fila> filas; // 5 filas
+    private ArrayList<Fila> filas; /|/ 5 filas
 
-    public Tablero() {
+    public Tablero(int nivel) {
         this.dimension_x = 400;
         this.dimension_y = 400;
 
         agregarFilas();
         crearBarra();
-        crearBola();
+        crearBola(nivel);
     }
 
     public void agregarFilas() {
@@ -29,8 +29,7 @@ public class Tablero {
             filas.add(new Fila(puntajes[i], i));
     }
 
-    public void crearBola() {
-        int VEL_INICIAL = 1;
+    public void crearBola(int velocidad) {
         int medioTablero = this.dimension_x / 2;
 
         this.bola = new Bola(
@@ -38,7 +37,7 @@ public class Tablero {
             this.dimension_y,
             15,
             15,
-            VEL_INICIAL,
+            velocidad,
             this.dimension_x,
             this.dimension_y
         );
@@ -115,5 +114,14 @@ public class Tablero {
             aRomper.romperLadrillo(bola.getPosicionX());
             partida.sumarPuntos(aRomper.getPuntaje());
         }
+    }
+
+    public boolean seRompieronTodosLosLadrillos() {
+        int filasRotas = 0;
+        for (Fila fila : filas) {
+            if (!fila.quedanLadrillos())
+                filasRotas++;
+        }
+        return filasRotas == filas.size();
     }
 }

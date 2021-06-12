@@ -9,9 +9,10 @@ public class Fila {
     private int dimension_y;
     private ArrayList<Ladrillo> ladrillos;
 
-    public Fila(int puntaje, int posicion) {
+
+    public Fila(int puntaje, int indice) {
         this.puntaje = puntaje;
-        this.indice = posicion;
+        this.indice = indice;
         this.dimension_y = 50; //TODO: ver tamaño
 
         agregarLadrillos();
@@ -19,21 +20,22 @@ public class Fila {
 
     public void agregarLadrillos() {
         this.ladrillos = new ArrayList<Ladrillo>(5);
-        int anchoLadrillo = 60;
-        int margen = 15;
 
+        final int anchoLadrillo = 60;
+        final int margen = 15;
         final int MOV_X_Y = 0;
 
-        for (int i = 0; i < 5; i++)
+        for (int indice = 0; indice < 5; indice++) {
             ladrillos.add(new Ladrillo(
-                (anchoLadrillo * i) + margen,
+                (anchoLadrillo * indice) + margen,
                 this.indice,
                 anchoLadrillo,
                 this.dimension_y,
                 MOV_X_Y,
                 MOV_X_Y,
-                i // indice
+                indice
             ));
+        }
     }
 
     public void romperLadrillo(int posicion) {
@@ -61,12 +63,22 @@ public class Fila {
     public boolean detectarLadrilloRoto(int posX, int posY, int tamanio) {
         Ladrillo ladrilloActual = buscarLadrillo(posX);
         if (ladrilloActual != null) {
-            return ladrilloActual.detectarColision(posX, posY, tamanio);
+            if (!ladrilloActual.estaRoto())
+                return ladrilloActual.detectarColision(posX, posY, tamanio);
         }
         return false;
     }
 
     public int getPuntaje() {
         return puntaje;
+    }
+
+    public boolean quedanLadrillos() {
+        int rotos = 0;
+        for (Ladrillo lad : ladrillos) {
+            if (lad.estaRoto())
+                rotos++;
+        }
+        return rotos != ladrillos.size();
     }
 }

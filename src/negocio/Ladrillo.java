@@ -18,4 +18,12 @@ public class Ladrillo extends ObjetoPosicionado {
     public boolean soyElLadrillo(int posX) {
         return this.posicionX == posX;
     }
+
+    public boolean estaRoto() {
+        return estoyRoto;
+    }
+
+    public int getIndice() {
+        return indice;
+    }
 }

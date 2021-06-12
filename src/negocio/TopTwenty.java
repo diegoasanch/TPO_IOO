@@ -2,14 +2,20 @@ package negocio;
 
 import java.util.*;
 
-// TODO: USAR PATRON SIGLETON
 public class TopTwenty {
 
     private ArrayList<Registro> mejoresVeinte;
     private Partida partidaActual;
+    private static TopTwenty instancia;
 
-    public TopTwenty() {
+    private TopTwenty() {
         mejoresVeinte = new ArrayList<Registro>();
+    }
+
+    public static TopTwenty getInstance() {
+        if (instancia == null)
+            instancia = new TopTwenty();
+        return instancia;
     }
 
     public void setPartidaActual(Partida partidaActual) {
