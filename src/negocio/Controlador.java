@@ -32,6 +32,7 @@ public class Controlador {
     }
 
     public void play() {|
+    
         partida.play();
     }
 
