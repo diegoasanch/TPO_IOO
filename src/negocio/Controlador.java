@@ -31,8 +31,8 @@ public class Controlador {
             partida.jugar();
     }
 
-    public void play() {|
-    
+    public void play() {
+
         partida.play();
     }
 
