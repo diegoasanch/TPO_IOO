@@ -10,7 +10,7 @@ public class Tablero {
     private Partida partida;
     private Barra barra;
     private Bola bola;
-    private ArrayList<Fila> filas; /|/ 5 filas
+    private ArrayList<Fila> filas; // 5 filas
 
     public Tablero(int nivel) {
         this.dimension_x = 400;

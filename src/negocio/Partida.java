@@ -34,10 +34,19 @@ public class Partida {
     public void subirNivel() {
         nivel++;
         modificarVidas(1);
+        iniciarJuego();
     }
 
     public void sumarPuntos(int puntos) {
+        if (debeSumarVida(this.puntos, puntos))
+            vida++;
         this.puntos += puntos;
+    }
+
+    private boolean debeSumarVida(int puntajeActual, int puntosASumar) {
+        int valorAntes = puntajeActual / 1000;
+        int valorDespues = (puntajeActual + puntosASumar) / 1000;
+        return valorAntes != valorDespues;
     }
 
     public boolean estaJugando() {
@@ -74,5 +83,9 @@ public class Partida {
 
     public void pierdeVida() {
         modificarVidas(-1);
+    }
+
+    public int getVida() {
+        return vida;
     }
 }

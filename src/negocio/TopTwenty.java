@@ -48,7 +48,7 @@ public class TopTwenty {
     public void ingresarNombre(String nombre) {
         if (!partidaActual.estaJugando()) {
             int puntaje = partidaActual.obtienePuntajeTotal();
-            int duracion = partidaActual.obtieneDuracionPartida();
+            int duracion = partidaActual.calcularDuracionPartida();
             agregarRecord(nombre, puntaje, duracion);
         }
     }

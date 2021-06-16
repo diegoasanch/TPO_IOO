@@ -1,13 +1,10 @@
 package negocio;
-
-import java.util.*;
-
 public class Controlador {
 
     private TopTwenty leaderboard;
     // private ArrayList<Partida> partidas;
     private Partida partida;
-    private ArrayList<Barra> barras;
+    private Barra barra;
     private static Controlador instancia;
 
     private Controlador() {
@@ -32,7 +29,6 @@ public class Controlador {
     }
 
     public void play() {
-
         partida.play();
     }
 
@@ -40,10 +36,17 @@ public class Controlador {
         partida.pausar();
     }
 
+    /**
+     * A pasarle a la instancia de barra de la partida actual
+     * @param direccion Tiene que ser "izquierda" o "derecha"
+     */
     public void moverBarra(String direccion) {
+        barra.moverBarra(direccion);
     }
 
     public void ingresarNombre(String nombre) {
+        //if vidas = 0 caja de texto para poner nombre
+        leaderboard.ingresarNombre(nombre);
     }
 
     public void renaudarJuego(){

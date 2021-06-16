@@ -9,12 +9,12 @@ import java.awt.Color;
 public class VentanaPrincipal extends JFrame{
 
     private static final long serialVersionUID = 45L;
-    JLabel helloLbl;
 
     public VentanaPrincipal() {
         configurar();
         this.setSize(1000, 1000);
         this.setVisible(true);
+        this.setTitle("Arkanoid");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
@@ -22,9 +22,9 @@ public class VentanaPrincipal extends JFrame{
         Container c = this.getContentPane();
         c.setLayout(null);
         c.setBackground(Color.WHITE);
-        helloLbl = new JLabel("Hello world");
+        c.add(new TableroDeJuego());
         c.setVisible(true);
-        c.add(helloLbl);
+       
     }
 
 }
