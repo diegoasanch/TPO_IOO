@@ -1844,13 +1844,30 @@
 											"height": 13,
 											"text": "+pierdeVida(): void",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF6GweNb76jEVs=",
+											"_parent": {
+												"$ref": "AAAAAAF4+3hUKWdQY/o="
+											},
+											"model": {
+												"$ref": "AAAAAAF6GweNV76gzNI="
+											},
+											"font": "Arial;13;0",
+											"left": 781,
+											"top": 305,
+											"width": 227.5,
+											"height": 13,
+											"text": "-debeSumarVida(): boolean",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 776,
 									"top": 135,
 									"width": 237.5,
-									"height": 173
+									"height": 188
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -8011,6 +8028,26 @@
 									"direction": "return"
 								}
 							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF6GweNV76gzNI=",
+							"_parent": {
+								"$ref": "AAAAAAF4+3hUKGdHJjM="
+							},
+							"name": "debeSumarVida",
+							"visibility": "private",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAF6Gwe4yr89a8I=",
+									"_parent": {
+										"$ref": "AAAAAAF6GweNV76gzNI="
+									},
+									"type": "boolean",
+									"direction": "return"
+								}
+							]
 						}
 					]
 				},
@@ -13866,7 +13903,7 @@
 												"$ref": "AAAAAAF5h5vS31GZurs="
 											},
 											"edgePosition": 1,
-											"text": "[si estaJugando] : cambiarEstado()"
+											"text": "[si estaJugando] : Message4"
 										},
 										{
 											"_type": "EdgeLabelView",

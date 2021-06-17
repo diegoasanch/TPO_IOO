@@ -1,28 +1,28 @@
 package view;
 
 public class BarraView {
-    private int x, y, tX, tY;
+    private int posX, posY, ancho, alto;
 
-    public BarraView(int x, int y, int tX, int tY){
-        this.x = x;
-        this.y = y;
-        this.tX = tX;
-        this.tY = tY;
+    public BarraView(int posX, int posY, int ancho, int alto){
+        this.posX = posX;
+        this.posY = posY;
+        this.ancho = ancho;
+        this.alto = alto;
     }
 
     public int getX(){
-        return x;
+        return posX;
     }
 
     public int getY(){
-        return y;
+        return posY;
     }
 
     public int getAncho(){
-        return tX;
+        return ancho;
     }
 
     public int getAlto(){
-        return tY;
+        return alto;
     }
 }

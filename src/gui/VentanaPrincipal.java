@@ -10,15 +10,23 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
+import negocio.Barra;
+
 public class VentanaPrincipal extends JFrame {
 
     private static final long serialVersionUID = 45L;
+    private static final int COD_P = 80;
+    private static final int COD_IZQUIERDA = 37;
+    private static final int COD_DERECHA = 39;
+    private static final int COD_ESPACIO = 32;
+    private static final int FPS = 30;
+
     private TableroDeJuego tablero;
     private MenuDeJuego menu;
     private JSplitPane paneles;
     private Timer timer;
 
-    private int testVida, testPuntaje; // TODO: quitar estos valores de prueba
+    private Barra testBarra; // TODO: QUITAR BARRA DE PRUEBA
 
     public VentanaPrincipal() {
         configurar();
@@ -27,7 +35,8 @@ public class VentanaPrincipal extends JFrame {
     }
 
     public void configurar() {
-        tablero = new TableroDeJuego();
+        testBarra = new Barra(240, 700, 85, 20, 540);
+        tablero = new TableroDeJuego(testBarra.toView());
         menu = new MenuDeJuego();
 
         paneles = new JSplitPane(SwingConstants.VERTICAL, tablero, menu);
@@ -38,8 +47,6 @@ public class VentanaPrincipal extends JFrame {
         this.setSize(800, 800);
         this.setResizable(false);
         this.setVisible(true);
-
-        testVida = testPuntaje = 1;
 
         this.setFocusable(true);
         this.requestFocus();
@@ -52,23 +59,49 @@ public class VentanaPrincipal extends JFrame {
 
             @Override
             public void keyPressed(KeyEvent key) {
-                if (key.getKeyChar() == 'p' || key.getKeyChar() == 'P') {
-                    if (timer.isRunning())
-                        timer.stop();
-                    else
-                        timer.start();
+                int codigo = key.getKeyCode();
+                System.out.println("Pressed: " + '"' + codigo + "'");
+
+                switch (codigo) {
+                    case COD_P:
+                        playPause();
+                        break;
+                    case COD_IZQUIERDA:
+                    case COD_DERECHA:
+                        moverBarra(codigo);
+                        break;
+                    case COD_ESPACIO:
+                        iniciarJuego();
+                        break;
+                    default:
+                        System.out.println("Tecla sin accion");
                 }
             }
         });
 
-        timer = new Timer(100, new ActionListener() {
+        timer = new Timer(1/FPS, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                testVida++;
-                testPuntaje += 100;
-                menu.setearValores(testVida, testPuntaje);
+                // TODO: Llamar la el metodo de jugar para mover el tablero
+                // TODO: Buscar una instancia de BolaView y LadrillosView para renderizarlos
             }
         });
     }
 
+    private void playPause() {
+        if (timer.isRunning())
+            timer.stop();
+        else
+            timer.start();
+    }
+
+    private void moverBarra(int codigo) {
+        String direccion = (codigo == COD_DERECHA) ? "derecha" : "izquierda";
+        testBarra.moverBarra(direccion);
+        tablero.setearPosicionBarra(testBarra.toView());
+    }
+
+    private void iniciarJuego() {
+        // Llamar el incio del juego
+    }
 }

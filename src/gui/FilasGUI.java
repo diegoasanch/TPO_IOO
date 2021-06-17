@@ -11,9 +11,9 @@ import java.util.List;
 public class FilasGUI extends JPanel{
     public FilasGUI(int anchoTablero, int altoCadaLadrillo, int cantFilas, int ancho_borde, int margenLadrillo) {
 
-        this.setBounds(ancho_borde, ancho_borde, anchoTablero - (2*ancho_borde), altoCadaLadrillo*cantFilas + (margenLadrillo*2));
-        this.setBackground(new Color(0, 0, 0, 0));
+        this.setBounds(ancho_borde, ancho_borde, anchoTablero, altoCadaLadrillo*cantFilas + (margenLadrillo*2));
         // this.setBackground(Color.white);
+        this.setBackground(new Color(0, 0, 0, 0));
         this.setLayout(null);
         this.setVisible(true);
     }

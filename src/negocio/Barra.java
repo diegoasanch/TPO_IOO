@@ -12,22 +12,25 @@ public class Barra extends ObjetoPosicionado {
         asignarDimensiones(minX, maxX);
     }
 
+    /**
+     * @param direccion debe ser "izquierda" o "derecha"
+     */
     public void moverBarra(String direccion) {
         if (mePuedoMover(direccion)) {
-            int movimiento_x;
+            int mov;
+            int distancia = 7;
             if (direccion.equals("izquierda"))
-                movimiento_x = -1;
+                mov = Math.max(-distancia, -posicionX); // Para prevenir que salga de los limites
             else
-                movimiento_x = +1;
-
-            this.posicionX += movimiento_x;
+                mov = Math.min(distancia, maxX-(posicionX+tamanioX));  // Para prevenir que salga de los limites
+            this.posicionX += mov;
         }
     }
 
     private boolean mePuedoMover(String direccion) {
         if (direccion.equals("izquierda"))
-            return this.posicionX > minX;
-        return this.posicionX < maxX;
+            return posicionX > minX;
+        return (posicionX+tamanioX) <= maxX;
     }
 
     private void asignarDimensiones(int minX, int maxX) {

@@ -1,85 +1,84 @@
 package gui;
 
-import java.util.Timer;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Dimension;
 import java.awt.Color;
 
 import javax.swing.JPanel;
+import javax.swing.BorderFactory;
 
 import view.BarraView;
 import view.BolaView;
 import view.FilasView;
 import view.LadrilloView;
 
-import javax.swing.JLabel;
-import javax.swing.BorderFactory;
-
 public class TableroDeJuego extends JPanel {
-    private JLabel lblLadrillo, lblBarra, lblBola, lblBordeLat, lblBordeSup;
-    private Timer timer;
-    private final int WIDHT = 560;
-    private final int HEIGHT = 740;
-    private Color borderColor, ladrilloColor;
+    private final int WIDTH = 540;
+    private final int HEIGHT = 730;
+    private final int BORDE = 10;
+    private Color borderColor, background;
     private BarraGUI barra;
     private BolaGUI bola;
-    private LadrilloGUI ladrillo;
     private FilasGUI filas;
-    private int ancho_borde = 10;
 
-    public TableroDeJuego(){
+    public TableroDeJuego(BarraView posBarraInicial) {
         super();
         borderColor = new Color(87, 181, 253); // rgb(87, 181, 253)
-        configurar();
-    }
+        background = new Color(235, 235, 235);  // rgb(235, 235, 235)
 
-    private void configurar() {
-        this.setPreferredSize(new Dimension(WIDHT, HEIGHT));
-        this.setBackground(Color.gray);
-        this.setBorder(BorderFactory.createMatteBorder(ancho_borde, ancho_borde, 0, ancho_borde, borderColor));
+        this.setPreferredSize(new Dimension(WIDTH+(2*BORDE), HEIGHT));
+        this.setBackground(background);
+        this.setBorder(BorderFactory.createMatteBorder(BORDE, BORDE, 0, BORDE, borderColor));
         this.setLayout(null);
 
-        // ! Quitar esto
+        configurar(posBarraInicial);
+    }
+
+    private void configurar(BarraView posBarraInicial) {
+
+        // TODO Pedir los views del controlador
+        int ANCHO_BARRA = 85;
+        int ALTO_BARRA = 20;
         int ALTO_LADRILLO = 40;
+        int ANCHO_LADRILLO = 90;
+        int DIAMETRO_BOLA = 30;
 
-        BarraView posBarra = new BarraView(300, 700, 85, 20);
-        BolaView posBola = new BolaView(40, 70, 30);
-        // LadrilloView posLadrillo = new LadrilloView(50, 50, 50, 20, false);
+        BolaView posBola = new BolaView(40, 70, DIAMETRO_BOLA);
+        // fin TODO
 
-        // ! fin Quitar esto
-        barra = new BarraGUI(posBarra);
-        bola = new BolaGUI(WIDHT, HEIGHT, ancho_borde, posBola);
-        // ladrillo = new LadrilloGUI(posLadrillo);
-        filas = new FilasGUI(WIDHT, ALTO_LADRILLO, 5, ancho_borde, 45);
+        barra = new BarraGUI(WIDTH, ALTO_BARRA, HEIGHT, BORDE, posBarraInicial);
+        bola = new BolaGUI(WIDTH, HEIGHT, BORDE, posBola);
+        filas = new FilasGUI(WIDTH, ALTO_LADRILLO, 5, BORDE, ANCHO_LADRILLO/2);
 
-        filas.dibujarLadrillos(testFilas());
+        filas.dibujarLadrillos(testFilas(ANCHO_LADRILLO, ALTO_LADRILLO)); // TODO: Pedir al controlador
 
-        this.add(barra);
         this.add(bola);
         this.add(filas);
-
-        // this.add(ladrillo);
+        this.add(barra);
     }
 
     //! Quitar esto despues
-    private FilasView testFilas() {
+    private FilasView testFilas(int ancho, int alto) {
 
-        int margen = 45;
-        int ancho = 90;
-        int alto = 40;
+        int margen = ancho/2;
 
-        List<List<LadrilloView>> filas = new ArrayList<>();
+        List<List<LadrilloView>> resultado = new ArrayList<>();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i=0; i<5; i++) {
             List<LadrilloView> filaActual = new ArrayList<>();
 
-            for (int j = 0; j < 5; j++) {
+            for (int j=0; j<5; j++) {
                 LadrilloView ladrilloActual = new LadrilloView(margen + ancho*j, margen + alto*i, ancho, alto, false);
                 filaActual.add(ladrilloActual);
             }
-            filas.add(filaActual);
+            resultado.add(filaActual);
         }
-        return new FilasView(filas);
+        return new FilasView(resultado);
+    }
+
+    public void setearPosicionBarra(BarraView posicion) {
+        barra.setPosicion(posicion);
+        barra.repaint();
     }
 }
