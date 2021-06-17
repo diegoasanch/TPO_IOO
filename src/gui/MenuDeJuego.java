@@ -20,10 +20,11 @@ public class MenuDeJuego extends JPanel {
     }
 
     private void configurar() {
+        String fontType = "Arial";
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        Font h1 = new Font("Arial", Font.BOLD, 40);
-        Font h2 = new Font("Arial", Font.BOLD, 20);
-        Font value = new Font("Arial", Font.BOLD, 30);
+        Font h1 = new Font(fontType, Font.BOLD, 40);
+        Font h2 = new Font(fontType, Font.BOLD, 20);
+        Font value = new Font(fontType, Font.BOLD, 30);
 
         lblMenu = new JLabel("Arkanoid");
         lblMenu.setFont(h1);
@@ -39,6 +40,14 @@ public class MenuDeJuego extends JPanel {
         valVidas.setFont(value);
 
         btnPlayPause = new JButton("Play/Pausa");
+
+        float center = 0.5f;
+        lblMenu.setAlignmentX(center);
+        lblPuntaje.setAlignmentX(center);
+        lblVidas.setAlignmentX(center);
+        valPuntos.setAlignmentX(center);
+        valVidas.setAlignmentX(center);
+        btnPlayPause.setAlignmentX(center);
 
         this.add(lblMenu);
         this.add(lblPuntaje);

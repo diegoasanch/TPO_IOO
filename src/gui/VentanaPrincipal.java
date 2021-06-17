@@ -52,7 +52,7 @@ public class VentanaPrincipal extends JFrame {
 
             @Override
             public void keyPressed(KeyEvent key) {
-                if (key.getKeyCode() == 80) { // p
+                if (key.getKeyChar() == 'p' || key.getKeyChar() == 'P') {
                     if (timer.isRunning())
                         timer.stop();
                     else

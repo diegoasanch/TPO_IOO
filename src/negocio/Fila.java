@@ -2,6 +2,8 @@ package negocio;
 
 import java.util.*;
 
+import view.LadrilloView;
+
 public class Fila {
 
     private int puntaje;
@@ -80,5 +82,12 @@ public class Fila {
                 rotos++;
         }
         return rotos != ladrillos.size();
+    }
+
+    public List<LadrilloView> toView() {
+        List<LadrilloView> fila = new ArrayList<>();
+        for (Ladrillo ladrillo : ladrillos)
+            fila.add(ladrillo.toView());
+        return fila;
     }
 }

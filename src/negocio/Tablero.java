@@ -2,6 +2,8 @@ package negocio;
 
 import java.util.*;
 
+import view.LadrilloView;
+
 public class Tablero {
 
     private int dimension_x;
@@ -123,5 +125,12 @@ public class Tablero {
                 filasRotas++;
         }
         return filasRotas == filas.size();
+    }
+
+    public List<List<LadrilloView>> filasToView() {
+        List<List<LadrilloView>> resultado = new ArrayList<>();
+        for (Fila fila : filas)
+            resultado.add(fila.toView());
+        return resultado;
     }
 }

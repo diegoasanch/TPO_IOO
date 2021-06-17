@@ -1,4 +1,6 @@
 package negocio;
+
+import view.BarraView;
 /**
  *
  */
@@ -35,5 +37,9 @@ public class Barra extends ObjetoPosicionado {
 
     public boolean mitadDerecha(int posXCentro) {
         return posXCentro >= this.posicionX + (this.tamanioX / 2);
+    }
+
+    public BarraView toView(){
+        return new BarraView(posicionX, posicionY, tamanioX, tamanioY);
     }
 }

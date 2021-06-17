@@ -1,6 +1,8 @@
 package negocio;
 import java.lang.Math;
 
+import view.BolaView;
+
 public class Bola extends ObjetoPosicionado {
 
     private int velocidad; // Pixeles por ciclo de juego
@@ -103,5 +105,9 @@ public class Bola extends ObjetoPosicionado {
      */
     private int anguloDeEntradaBarra() {
         return sentido - 270;
+    }
+
+    public BolaView toView() {
+        return new BolaView(posicionX, posicionY, tamanioX);
     }
 }

@@ -1,13 +1,15 @@
 package view;
 
-public class BarraView {
+public class LadrilloView {
     private int x, y, tX, tY;
+    private boolean estaRoto;
 
-    public BarraView(int x, int y, int tX, int tY){
+    public LadrilloView(int x, int y, int tX, int tY, boolean estaRoto){
         this.x = x;
         this.y = y;
         this.tX = tX;
         this.tY = tY;
+        this.estaRoto = estaRoto;
     }
 
     public int getX(){
@@ -24,5 +26,9 @@ public class BarraView {
 
     public int getAlto(){
         return tY;
+    }
+
+    public boolean getEstaRoto() {
+        return estaRoto;
     }
 }

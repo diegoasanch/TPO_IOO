@@ -1,5 +1,7 @@
 package negocio;
 
+import view.LadrilloView;
+
 public class Ladrillo extends ObjetoPosicionado {
 
     private boolean estoyRoto;
@@ -25,5 +27,9 @@ public class Ladrillo extends ObjetoPosicionado {
 
     public int getIndice() {
         return indice;
+    }
+
+    public LadrilloView toView() {
+        return new LadrilloView(posicionX, posicionY, tamanioX, tamanioY, estoyRoto);
     }
 }
