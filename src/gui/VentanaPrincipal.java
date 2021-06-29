@@ -43,6 +43,7 @@ public class VentanaPrincipal extends JFrame {
 
     public void configurar() {
         // TODO: Inicializar el juego (inciarJuego() o jugar() o play())
+        
         testBarra = new Barra(240, 700, 85, 20, 540);  // TODO: Reemplazar por controlador
         testBola = new Bola(200, 300,30, 30, 2, 540, 590);
         tablero = new TableroDeJuego(testBarra.toView(), testBola.toView()); // TODO: Pedir filas a controlador

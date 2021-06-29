@@ -6,6 +6,9 @@ import java.awt.Dimension;
 import java.awt.Color;
 
 import javax.swing.JPanel;
+
+import negocio.Controlador;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -43,6 +46,7 @@ public class TableroDeJuego extends JPanel {
     private void configurar(BarraView posBarraInicial, BolaView posBolaInicial) {
 
         // TODO Pedir los views del controlador
+        //Controlador ANCHO_BARRA = new Controlador.getBarra(); //ME PIDE QUE SEA ESTATICO???
         int ANCHO_BARRA = 85;
         int ALTO_BARRA = 20;
         int ALTO_LADRILLO = 40;
