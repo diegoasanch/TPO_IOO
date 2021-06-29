@@ -16,6 +16,8 @@ public class Controlador {
         // this.partidas = new ArrayList<Partida>();
         // this.partidas.add(new Partida());
         this.partida = new Partida();
+        partida.iniciarJuego();
+        barra = partida.getBarraInicial();
     }
 
     public static Controlador getInstance() {

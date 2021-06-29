@@ -99,4 +99,8 @@ public class Partida {
     public FilasView getFilas() {
         return tablero.getFilas();
     }
+
+    public Barra getBarraInicial() {
+        return tablero.getBarraInicial();
+    }
 }

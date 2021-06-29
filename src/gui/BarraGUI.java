@@ -10,9 +10,9 @@ public class BarraGUI extends JPanel {
     private int posX, posY, ancho, alto;
     private Color background, foreground;
 
-    public BarraGUI(int anchoTablero, int altoBarra, int posY, int borde, BarraView posicionInicial) {
+    public BarraGUI(int anchoTablero, int posY, int borde, BarraView posicionInicial) {
         super();
-        this.setBounds(borde, posY, anchoTablero, altoBarra);
+        this.setBounds(borde, posY, anchoTablero, posicionInicial.getAlto());
         setPosicion(posicionInicial);
         background = new Color(235, 235, 235);  // rgb(235, 235, 235)
         foreground = new Color(27, 34, 42);     // rgb(27, 34, 42)

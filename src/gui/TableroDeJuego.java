@@ -30,7 +30,7 @@ public class TableroDeJuego extends JPanel {
     private JLabel bola;
     private int posX, posY, diametro;
 
-    public TableroDeJuego(BarraView posBarraInicial, BolaView posBolaInicial) {
+    public TableroDeJuego(BarraView posBarraInicial, BolaView posBolaInicial, FilasView posFilasInicial) {
         super();
         borderColor = new Color(87, 181, 253); // rgb(87, 181, 253)
         background = new Color(235, 235, 235);  // rgb(235, 235, 235)
@@ -40,53 +40,36 @@ public class TableroDeJuego extends JPanel {
         this.setBorder(BorderFactory.createMatteBorder(BORDE, BORDE, 0, BORDE, borderColor));
         this.setLayout(null);
 
-        configurar(posBarraInicial, posBolaInicial);
+        configurar(posBarraInicial, posBolaInicial, posFilasInicial);
     }
 
-    private void configurar(BarraView posBarraInicial, BolaView posBolaInicial) {
+    private void configurar(BarraView posBarraInicial, BolaView posBolaInicial, FilasView posFilasInicial) {
 
         // TODO Pedir los views del controlador
-        //Controlador ANCHO_BARRA = new Controlador.getBarra(); //ME PIDE QUE SEA ESTATICO???
-        int ANCHO_BARRA = 85;
-        int ALTO_BARRA = 20;
-        int ALTO_LADRILLO = 40;
-        int ANCHO_LADRILLO = 90;
-        int DIAMETRO_BOLA = 30;
+        // Controlador.getInstance().getBarra();
+        // Controlador.getInstance().getBola();
+        // Controlador.getInstance().getFilas();
+        // int ANCHO_BARRA = 85;
+        // int ALTO_BARRA = 20;
+        // int ALTO_LADRILLO = 40;
+        // int ANCHO_LADRILLO = 90;
+        // int DIAMETRO_BOLA = 30;
 
-        BolaView posBola = new BolaView(40, 70, DIAMETRO_BOLA);
+        // BolaView posBola = new BolaView(40, 70, DIAMETRO_BOLA);
         // fin TODO
 
-        barra = new BarraGUI(WIDTH, ALTO_BARRA, HEIGHT, BORDE, posBarraInicial);
-        bola = new JLabel(new ImageIcon(getClass().getResource("Assets/bola.png")));
-
+        barra = new BarraGUI(this.WIDTH, this.HEIGHT, BORDE, posBarraInicial);
+        filas = new FilasGUI(WIDTH, 5, BORDE, posFilasInicial);
         // bola = new BolaGUI(WIDTH, HEIGHT, BORDE, posBolaInicial);
-        // bola = new BolaGUI(WIDTH, HEIGHT, BORDE, posBola);
-        filas = new FilasGUI(WIDTH, ALTO_LADRILLO, 5, BORDE, ANCHO_LADRILLO/2);
 
-        filas.dibujarLadrillos(testFilas(ANCHO_LADRILLO, ALTO_LADRILLO)); // TODO: Pedir al controlador
+        bola = new JLabel(new ImageIcon(getClass().getResource("/Assets/bola.png")));
+        setearPosicionBola(posBolaInicial);
+        // bola = new BolaGUI(WIDTH, HEIGHT, BORDE, posBolaInicial);
+
 
         this.add(bola);
         this.add(filas);
         this.add(barra);
-    }
-
-    //! Quitar esto despues
-    private FilasView testFilas(int ancho, int alto) {
-
-        int margen = ancho/2;
-
-        List<List<LadrilloView>> resultado = new ArrayList<>();
-
-        for (int i=0; i<5; i++) {
-            List<LadrilloView> filaActual = new ArrayList<>();
-
-            for (int j=0; j<5; j++) {
-                LadrilloView ladrilloActual = new LadrilloView(margen + ancho*j, margen + alto*i, ancho, alto, false);
-                filaActual.add(ladrilloActual);
-            }
-            resultado.add(filaActual);
-        }
-        return new FilasView(resultado);
     }
 
     public void setearPosicionBarra(BarraView posicion) {
@@ -100,5 +83,9 @@ public class TableroDeJuego extends JPanel {
         bola.setBounds(posX, posY, diametro, diametro);
 
         // bola.setPosicion(posicion);
+    }
+
+    public void setearEstadoLadrillos(FilasView posicion) {
+        filas.dibujarLadrillos(posicion);
     }
 }

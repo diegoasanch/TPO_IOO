@@ -143,4 +143,8 @@ public class Tablero {
     public BolaView getBola() {
         return bola.toView();
     }
+
+    public Barra getBarraInicial() {
+        return this.barra;
+    }
 }
