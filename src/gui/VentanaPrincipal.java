@@ -11,6 +11,7 @@ import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
 import negocio.Barra;
+import negocio.Bola;
 
 public class VentanaPrincipal extends JFrame {
 
@@ -19,7 +20,7 @@ public class VentanaPrincipal extends JFrame {
     private static final int COD_IZQUIERDA = 37;
     private static final int COD_DERECHA = 39;
     private static final int COD_ESPACIO = 32;
-    private static final int FPS = 30;
+    private static final int GAME_LOOP_DELAY = 50;
 
     private TableroDeJuego tablero;
     private MenuDeJuego menu;
@@ -27,6 +28,7 @@ public class VentanaPrincipal extends JFrame {
     private Timer timer;
 
     private Barra testBarra; // TODO: QUITAR BARRA DE PRUEBA
+    private Bola testBola; // TODO: QUITAR BOLA DE PRUEBA
 
     public VentanaPrincipal() {
         configurar();
@@ -36,7 +38,8 @@ public class VentanaPrincipal extends JFrame {
 
     public void configurar() {
         testBarra = new Barra(240, 700, 85, 20, 540);
-        tablero = new TableroDeJuego(testBarra.toView());
+        testBola = new Bola(100, 100,30, 30, 2, 540, 590);
+        tablero = new TableroDeJuego(testBarra.toView(), testBola.toView());
         menu = new MenuDeJuego();
 
         paneles = new JSplitPane(SwingConstants.VERTICAL, tablero, menu);
@@ -44,7 +47,7 @@ public class VentanaPrincipal extends JFrame {
         paneles.setEnabled(false); // Para que no se pueda modificar el tamanio
 
         this.add(paneles);
-        this.setSize(800, 800);
+        this.setSize(800, 650);
         this.setResizable(false);
         this.setVisible(true);
 
@@ -79,9 +82,11 @@ public class VentanaPrincipal extends JFrame {
             }
         });
 
-        timer = new Timer(1/FPS, new ActionListener() {
+        timer = new Timer(GAME_LOOP_DELAY, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                testBola.mover();
+                tablero.setearPosicionBola(testBola.toView());
                 // TODO: Llamar la el metodo de jugar para mover el tablero
                 // TODO: Buscar una instancia de BolaView y LadrillosView para renderizarlos
             }

@@ -18,7 +18,7 @@ public class Bola extends ObjetoPosicionado {
     public Bola(int posicionX, int posicionY, int tamanioX, int tamanioY, int velocidadInicial, int maxX, int maxY) {
         super(posicionX, posicionY, tamanioX, tamanioY, maxX, maxY);
         this.velocidad = velocidadInicial;
-        this.sentido = 90;
+        this.sentido = 0;
     }
 
     public void cambiarVelocidad(int velocidad) {
@@ -28,6 +28,7 @@ public class Bola extends ObjetoPosicionado {
     public void mover() {
         this.posicionX += calcMovimientoX();
         this.posicionY += calcMovimientoY();
+        System.out.println("Mov bola x: " + posicionX + " y: " + posicionY);
     }
 
     private int calcMovimientoX() {

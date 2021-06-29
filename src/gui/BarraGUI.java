@@ -25,6 +25,7 @@ public class BarraGUI extends JPanel {
         posY = 0;
         ancho = posicion.getAncho();
         alto = posicion.getAlto();
+        this.repaint();
     }
 
 
