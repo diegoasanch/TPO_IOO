@@ -2,7 +2,13 @@ package negocio;
 
 import java.util.*;
 
+import view.BolaView;
+import view.FilasView;
 import view.LadrilloView;
+
+import constantes.DimensionTablero;
+import constantes.DimensionesBarra;
+import constantes.DimensionesBola;
 
 public class Tablero {
 
@@ -15,8 +21,8 @@ public class Tablero {
     private ArrayList<Fila> filas; // 5 filas
 
     public Tablero(int nivel) {
-        this.dimension_x = 400;
-        this.dimension_y = 400;
+        this.dimension_x = DimensionTablero.TAMANIO_X;
+        this.dimension_y = DimensionTablero.TAMANIO_Y;
 
         agregarFilas();
         crearBarra();
@@ -37,9 +43,9 @@ public class Tablero {
         this.bola = new Bola(
             medioTablero,
             this.dimension_y,
-            15,
-            15,
-            velocidad,
+            DimensionesBola.DIAMETRO,
+            DimensionesBola.DIAMETRO,
+            DimensionesBola.VELOCIDAD_INICIAL,
             this.dimension_x,
             this.dimension_y
         );
@@ -50,8 +56,8 @@ public class Tablero {
         this.barra = new Barra(
             medioTablero,
             this.dimension_y,
-            100,
-            20,
+            DimensionesBarra.TAMANIO_X,
+            DimensionesBarra.TAMANIO_Y,
             this.dimension_x
         );
     }
@@ -127,10 +133,14 @@ public class Tablero {
         return filasRotas == filas.size();
     }
 
-    public List<List<LadrilloView>> filasToView() {
+    public FilasView getFilas() {
         List<List<LadrilloView>> resultado = new ArrayList<>();
         for (Fila fila : filas)
             resultado.add(fila.toView());
-        return resultado;
+        return new FilasView(resultado);
+    }
+
+    public BolaView getBola() {
+        return bola.toView();
     }
 }

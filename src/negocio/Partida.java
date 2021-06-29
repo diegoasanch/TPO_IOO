@@ -2,6 +2,9 @@ package negocio;
 
 import java.util.Date;
 
+import view.BolaView;
+import view.FilasView;
+
 public class Partida {
 
     private int nivel;
@@ -87,5 +90,13 @@ public class Partida {
 
     public int getVida() {
         return vida;
+    }
+
+    public BolaView getBola() {
+        return tablero.getBola();
+    }
+
+    public FilasView getFilas() {
+        return tablero.getFilas();
     }
 }

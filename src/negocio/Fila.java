@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.*;
 
+import constantes.DimensionesLadrillo;
 import view.LadrilloView;
 
 public class Fila {
@@ -27,12 +28,12 @@ public class Fila {
         final int margen = 15;
         final int MOV_X_Y = 0;
 
-        for (int indice = 0; indice < 5; indice++) {
+        for (int indiceCol = 0; indiceCol < 5; indiceCol++) {
             ladrillos.add(new Ladrillo(
-                (anchoLadrillo * indice) + margen,
-                this.indice,
-                anchoLadrillo,
-                this.dimension_y,
+                (DimensionesLadrillo.TAMANIO_X * indiceCol) + DimensionesLadrillo.MARGEN,
+                (DimensionesLadrillo.TAMANIO_Y * indice) + DimensionesLadrillo.MARGEN,
+                DimensionesLadrillo.TAMANIO_X,
+                DimensionesLadrillo.TAMANIO_Y,
                 MOV_X_Y,
                 MOV_X_Y,
                 indice

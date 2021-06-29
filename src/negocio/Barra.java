@@ -6,7 +6,7 @@ import view.BarraView;
  */
 public class Barra extends ObjetoPosicionado {
 
-    public Barra(int posicionX, int posicionY, int tamanioX, int tamanioY,  int maxX) {
+    public Barra(int posicionX, int posicionY, int tamanioX, int tamanioY, int maxX) {
         // Maxima posicion de barra es su posicion inicial
         super(posicionX, posicionY, tamanioX, tamanioY, maxX, posicionY);
         asignarDimensiones(minX, maxX);

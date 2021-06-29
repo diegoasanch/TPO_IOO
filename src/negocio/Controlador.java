@@ -1,4 +1,9 @@
 package negocio;
+
+import view.BarraView;
+import view.BolaView;
+import view.FilasView;
+
 public class Controlador {
 
     private TopTwenty leaderboard;
@@ -53,4 +58,17 @@ public class Controlador {
         partida.play();
         partida.jugar();
     }
+
+    public BarraView getBarra() {
+        return barra.toView();
+    }
+
+    public BolaView getBola() {
+        return partida.getBola();
+    }
+
+    public FilasView getFilas() {
+        return partida.getFilas();
+    }
+
 }

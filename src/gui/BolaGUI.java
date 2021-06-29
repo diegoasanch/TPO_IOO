@@ -18,7 +18,7 @@ public class BolaGUI extends JPanel {
         this.setBounds(ancho_borde, ancho_borde, tableroTamanioX, tableroTamanioY);
         this.setBackground(new Color(0, 0, 0, 0)); // Transparente
         // this.setBackground(new Color(255, 255, 0, 100)); // Rojo trnaslucido
-        bola = new JLabel(new ImageIcon(getClass().getResource("Assets/bola.png")));
+        // bola = new JLabel(new ImageIcon(getClass().getResource("Assets/bola.png")));
         this.add(bola);
         setPosicion(posicionInicial);
     }
@@ -28,15 +28,15 @@ public class BolaGUI extends JPanel {
         posY = posicion.getY();
         diametro = posicion.getDiametro();
         bola.setBounds(posX, posY, diametro, diametro);
-        // this.repaint();
+        this.repaint();
     }
 
-    // @Override
-    // public void paintComponent(Graphics g) {
-    //     super.paintComponent(g);
-    //     g.setColor(Color.red); // TODO darle un color sexy
-    //     g.fillOval(posX, posY, diametro, diametro);
-    // }
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(Color.red); // TODO darle un color sexy
+        g.fillOval(posX, posY, diametro, diametro);
+    }
 
 
 }

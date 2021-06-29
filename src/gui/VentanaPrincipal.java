@@ -12,6 +12,7 @@ import javax.swing.Timer;
 
 import negocio.Barra;
 import negocio.Bola;
+import negocio.Controlador;
 
 public class VentanaPrincipal extends JFrame {
 
@@ -30,16 +31,21 @@ public class VentanaPrincipal extends JFrame {
     private Barra testBarra; // TODO: QUITAR BARRA DE PRUEBA
     private Bola testBola; // TODO: QUITAR BOLA DE PRUEBA
 
+    private Controlador controlador;
+
     public VentanaPrincipal() {
-        configurar();
         this.setTitle("Arkanoid");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        controlador = Controlador.getInstance();
+        configurar();
+
     }
 
     public void configurar() {
-        testBarra = new Barra(240, 700, 85, 20, 540);
-        testBola = new Bola(100, 100,30, 30, 2, 540, 590);
-        tablero = new TableroDeJuego(testBarra.toView(), testBola.toView());
+        // TODO: Inicializar el juego (inciarJuego() o jugar() o play())
+        testBarra = new Barra(240, 700, 85, 20, 540);  // TODO: Reemplazar por controlador
+        testBola = new Bola(200, 300,30, 30, 2, 540, 590);
+        tablero = new TableroDeJuego(testBarra.toView(), testBola.toView()); // TODO: Pedir filas a controlador
         menu = new MenuDeJuego();
 
         paneles = new JSplitPane(SwingConstants.VERTICAL, tablero, menu);
@@ -85,8 +91,8 @@ public class VentanaPrincipal extends JFrame {
         timer = new Timer(GAME_LOOP_DELAY, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                testBola.mover();
-                tablero.setearPosicionBola(testBola.toView());
+                // testBola.mover(); // TODO: Mover en el controlador
+                tablero.setearPosicionBola(testBola.toView());  // TODO: Pedirle el view al controlador
                 // TODO: Llamar la el metodo de jugar para mover el tablero
                 // TODO: Buscar una instancia de BolaView y LadrillosView para renderizarlos
             }
@@ -102,11 +108,11 @@ public class VentanaPrincipal extends JFrame {
 
     private void moverBarra(int codigo) {
         String direccion = (codigo == COD_DERECHA) ? "derecha" : "izquierda";
-        testBarra.moverBarra(direccion);
-        tablero.setearPosicionBarra(testBarra.toView());
+        // testBarra.moverBarra(direccion); // TODO: Mover en el controlador
+        tablero.setearPosicionBarra(testBarra.toView()); // TODO: Pedirle el view al controlador
     }
 
     private void iniciarJuego() {
-        // Llamar el incio del juego
+        //TODO: Llamar el incio del juego
     }
 }
