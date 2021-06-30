@@ -64,7 +64,7 @@ public class MenuDeJuego extends JPanel {
     }
 
     public void setearValores(int vidas, int puntaje) {
-        this.valVidas.setText(String.valueOf(getVida()));
+        // this.valVidas.setText(String.valueOf(getVida()));
         this.valPuntos.setText(String.valueOf(puntaje));
     }
 }

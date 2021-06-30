@@ -1,7 +1,9 @@
 package negocio;
 import java.lang.Math;
+import java.util.Random;
 
 import view.BolaView;
+
 
 public class Bola extends ObjetoPosicionado {
 
@@ -14,11 +16,13 @@ public class Bola extends ObjetoPosicionado {
      * Abajo = 270
      */
     private int sentido;
+    private Random random;
 
     public Bola(int posicionX, int posicionY, int tamanioX, int tamanioY, int velocidadInicial, int maxX, int maxY) {
         super(posicionX, posicionY, tamanioX, tamanioY, maxX, maxY);
         this.velocidad = velocidadInicial;
-        this.sentido = 45;
+        this.sentido = 90;
+        random = new Random();
     }
 
     public void cambiarVelocidad(int velocidad) {
@@ -33,13 +37,13 @@ public class Bola extends ObjetoPosicionado {
 
     private int calcMovimientoX() {
         double cosAngulo = Math.cos(Math.toRadians(sentido));
-        int movX = (int) ((double)velocidad * cosAngulo);
+        int movX =(int) Math.round((double)velocidad * cosAngulo);
         return movX;
     }
 
     private int calcMovimientoY() {
         double sinAngulo = Math.sin(Math.toRadians(sentido));
-        int movY = (int) ((double)velocidad * sinAngulo);
+        int movY = (int) Math.round((double)velocidad * sinAngulo);
         return -movY;
     }
 
@@ -75,20 +79,23 @@ public class Bola extends ObjetoPosicionado {
     }
 
     public void rebotarLadrillo() {
-        int nuevoAngulo = numeroRandom(180+85, 180+95);
+        int nuevoAngulo = numeroRandom(180+80, 180+100);
         this.sentido = nuevoAngulo;
+        System.out.println("nuevoAngulo: " + this.sentido);
     }
 
     public void rebotarBarra(boolean mitadDerecha) {
         int anguloEntrada = anguloDeEntradaBarra();
         int nuevoAngulo;
+        System.out.println("Angulo de entrada: " + anguloEntrada + " Lado de rebote: " + (mitadDerecha ? "Derecha" : "Izquierda"));
         if (mitadDerecha) {
             nuevoAngulo = 60 + anguloEntrada;
         }
         else { // Mitad Izquierda
-            nuevoAngulo = 90 + anguloEntrada;
+            nuevoAngulo = 100 + anguloEntrada;
         }
         this.sentido = normalizarAngulo(nuevoAngulo);
+        System.out.println("Nuevo angulo " + this.sentido);
     }
 
     public boolean estaBajando() {
@@ -104,7 +111,7 @@ public class Bola extends ObjetoPosicionado {
     }
 
     private int numeroRandom(int desde, int hasta) {
-        return (int) Math.round(Math.random() * (hasta-desde+1) + desde);
+        return desde + random.nextInt(hasta - desde + 1);
     }
 
     /**

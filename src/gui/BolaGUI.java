@@ -31,17 +31,9 @@ public class BolaGUI extends JPanel {
     }
 
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         g.setColor(Color.red); // TODO darle un color sexy
         g.fillOval(posX, posY, diametro, diametro);
     }
-    // @Override
-    // public void draw (Graphics g) {
-    //     super.draw(g);
-    //     g.setColor(Color.red); // TODO darle un color sexy
-    //     g.fillOval(posX, posY, diametro, diametro);
-    // }
-
-
 }

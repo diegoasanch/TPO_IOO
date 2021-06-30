@@ -21,9 +21,10 @@ public class Tablero {
     private Bola bola;
     private ArrayList<Fila> filas; // 5 filas
 
-    public Tablero(int nivel) {
+    public Tablero(int nivel, Partida partida) {
         this.dimension_x = DimensionTablero.TAMANIO_X;
         this.dimension_y = DimensionTablero.TAMANIO_Y;
+        this.partida = partida;
 
         agregarFilas();
         crearBarra();
@@ -42,8 +43,10 @@ public class Tablero {
         int medioTablero = this.dimension_x / 2;
 
         this.bola = new Bola(
-            medioTablero,
-            this.dimension_y - 20,
+            // medioTablero,
+            // this.dimension_y - 20,
+            DimensionesBola.POS_INI_X,
+            DimensionesBola.POS_INI_Y,
             DimensionesBola.DIAMETRO,
             DimensionesBola.DIAMETRO,
             DimensionesBola.VELOCIDAD_INICIAL,
@@ -82,10 +85,11 @@ public class Tablero {
                 partida.pierdeVida();
             }
         }
-        // else if (detectarLadrilloRoto()) { // La bola esta en algun punto central del tablero
-        //     bola.rebotarLadrillo();
-        //     romperLadrillo();
-        // }
+        else if (detectarLadrilloRoto()) { // La bola esta en algun punto central del tablero
+            System.out.println("Se rompio un ladrillo");
+            bola.rebotarLadrillo();
+            romperLadrillo();
+        }
         bola.mover();
     }
 
@@ -95,17 +99,17 @@ public class Tablero {
     }
 
     public boolean detectarLadrilloRoto() {
-        Fila filaActual = buscarFila(bola.getPosicionY()); // Si colisiona con alguno
+        Fila filaActual = buscarFila(bola.getPosicionY(), bola.getTamanioX()); // Si colisiona con alguno
         if (filaActual != null) {
             return filaActual.detectarLadrilloRoto(bola.getPosicionX(), bola.getPosicionY(), bola.getTamanioX());
         }
         return false;
     }
 
-    public Fila buscarFila(int posY) {
+    public Fila buscarFila(int posY, int tamanio) {
         Fila resultado = null;
         for (Fila fila : this.filas) {
-            if (fila.soyLaFila(posY)) {
+            if (fila.soyLaFila(posY, tamanio)) {
                 resultado = fila;
                 break;
             }
@@ -118,9 +122,9 @@ public class Tablero {
      * a la partida
      */
     private void romperLadrillo() {
-        Fila aRomper = buscarFila(bola.getPosicionY());
+        Fila aRomper = buscarFila(bola.getPosicionY(), bola.getTamanioX());
         if (aRomper != null) {
-            aRomper.romperLadrillo(bola.getPosicionX());
+            aRomper.romperLadrillo(bola.getPosicionX(),  bola.getTamanioX());
             partida.sumarPuntos(aRomper.getPuntaje());
         }
     }

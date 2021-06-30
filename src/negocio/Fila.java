@@ -16,7 +16,7 @@ public class Fila {
     public Fila(int puntaje, int indice) {
         this.puntaje = puntaje;
         this.indice = indice;
-        this.dimension_y = 50; //TODO: ver tamaño
+        this.dimension_y = DimensionesLadrillo.TAMANIO_Y;
 
         agregarLadrillos();
     }
@@ -24,8 +24,6 @@ public class Fila {
     public void agregarLadrillos() {
         this.ladrillos = new ArrayList<Ladrillo>(5);
 
-        final int anchoLadrillo = 60;
-        final int margen = 15;
         final int MOV_X_Y = 0;
 
         for (int indiceCol = 0; indiceCol < 5; indiceCol++) {
@@ -36,26 +34,34 @@ public class Fila {
                 DimensionesLadrillo.TAMANIO_Y,
                 MOV_X_Y,
                 MOV_X_Y,
-                indice
+                indiceCol
             ));
         }
     }
 
-    public void romperLadrillo(int posicion) {
-        Ladrillo aRomper = buscarLadrillo(posicion);
+    public void romperLadrillo(int posicion, int tamanio) {
+        Ladrillo aRomper = buscarLadrillo(posicion, tamanio);
         if (aRomper != null) {
+            System.out.println("Rompiendo ladrillo: " + indice + ' ' + aRomper.getIndice());
             aRomper.destruccionLadrillo();
         }
     }
 
-    public boolean soyLaFila(int posY) {
-        return posY >= indice && posY <= indice + dimension_y;
+    public boolean soyLaFila(int posY, int tamanio) {
+        int minY = (indice * dimension_y) + DimensionesLadrillo.MARGEN;
+        int maxY = ((indice + 1) * dimension_y) + DimensionesLadrillo.MARGEN;
+        int bolaSuperior = posY;
+        int bolaInferior = posY + tamanio;
+        return (
+            bolaSuperior >= minY && bolaSuperior <= maxY ||
+            bolaInferior >= minY && bolaInferior <= minY
+        );
     }
 
-    private Ladrillo buscarLadrillo(int posX) {
+    private Ladrillo buscarLadrillo(int posX, int tamanio) {
         Ladrillo resultado = null;
         for (Ladrillo lad : ladrillos) {
-            if (lad.soyElLadrillo(posX)) {
+            if (lad.soyElLadrillo(posX, tamanio)) {
                 resultado = lad;
                 break;
             }
@@ -64,11 +70,9 @@ public class Fila {
     }
 
     public boolean detectarLadrilloRoto(int posX, int posY, int tamanio) {
-        Ladrillo ladrilloActual = buscarLadrillo(posX);
-        if (ladrilloActual != null) {
-            if (!ladrilloActual.estaRoto())
-                return ladrilloActual.detectarColision(posX, posY, tamanio);
-        }
+        Ladrillo ladrilloActual = buscarLadrillo(posX, tamanio);
+        if (ladrilloActual != null && !ladrilloActual.estaRoto())
+            return ladrilloActual.detectarColision(posX, posY, tamanio);
         return false;
     }
 

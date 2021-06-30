@@ -1,5 +1,6 @@
 package negocio;
 
+import constantes.DimensionesLadrillo;
 import view.LadrilloView;
 
 public class Ladrillo extends ObjetoPosicionado {
@@ -17,8 +18,11 @@ public class Ladrillo extends ObjetoPosicionado {
         this.estoyRoto = true;
     }
 
-    public boolean soyElLadrillo(int posX) {
-        return this.posicionX == posX;
+    public boolean soyElLadrillo(int posX, int tamanio) {
+        int radioBola = tamanio / 2;
+        int minX = (indice * tamanioX) + DimensionesLadrillo.MARGEN - radioBola;
+        int maxX = ((indice + 1)* tamanioX) + DimensionesLadrillo.MARGEN - tamanio + radioBola;
+        return posX >= minX && posX < maxX;
     }
 
     public boolean estaRoto() {
