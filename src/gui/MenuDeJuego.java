@@ -8,10 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import negocio.Partida;
 // import jdk.internal.platform.Container;
 
 public class MenuDeJuego extends JPanel {
-    private JLabel lblMenu, lblPuntaje, lblVidas, valPuntos, valVidas;
+    private JLabel lblMenu, lblPuntaje, lblVidas, lblNivel, valPuntos, valVidas, valNivel;
     private JButton btnPlayPause;
 
     public MenuDeJuego() {
@@ -33,11 +34,15 @@ public class MenuDeJuego extends JPanel {
         lblPuntaje.setFont(h2);
         lblVidas = new JLabel("Vidas");
         lblVidas.setFont(h2);
+        lblNivel = new JLabel ("Nivel");
+        lblNivel.setFont(h2);
 
         valPuntos = new JLabel("xxxx");
         valPuntos.setFont(value);
         valVidas = new JLabel("xxxx");
         valVidas.setFont(value);
+        valNivel = new JLabel ("xxxx");
+        valNivel.setFont(value);
 
         btnPlayPause = new JButton("Play/Pausa");
 
@@ -59,7 +64,7 @@ public class MenuDeJuego extends JPanel {
     }
 
     public void setearValores(int vidas, int puntaje) {
-        this.valVidas.setText(String.valueOf(vidas));
+        this.valVidas.setText(String.valueOf(getVida()));
         this.valPuntos.setText(String.valueOf(puntaje));
     }
 }

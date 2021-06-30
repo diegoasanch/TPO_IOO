@@ -9,15 +9,11 @@ public class Controlador {
     private TopTwenty leaderboard;
     // private ArrayList<Partida> partidas;
     private Partida partida;
-    private Barra barra;
     private static Controlador instancia;
 
     private Controlador() {
-        // this.partidas = new ArrayList<Partida>();
-        // this.partidas.add(new Partida());
         this.partida = new Partida();
         partida.iniciarJuego();
-        barra = partida.getBarraInicial();
     }
 
     public static Controlador getInstance() {
@@ -48,7 +44,7 @@ public class Controlador {
      * @param direccion Tiene que ser "izquierda" o "derecha"
      */
     public void moverBarra(String direccion) {
-        barra.moverBarra(direccion);
+        partida.moverBarra(direccion);
     }
 
     public void ingresarNombre(String nombre) {
@@ -62,7 +58,7 @@ public class Controlador {
     }
 
     public BarraView getBarra() {
-        return barra.toView();
+        return partida.getBarra();
     }
 
     public BolaView getBola() {
@@ -72,5 +68,11 @@ public class Controlador {
     public FilasView getFilas() {
         return partida.getFilas();
     }
+
+    public int getVidas(){
+        return partida.getVida();
+    }
+
+
 
 }

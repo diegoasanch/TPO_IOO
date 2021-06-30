@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.Date;
 
+import view.BarraView;
 import view.BolaView;
 import view.FilasView;
 
@@ -100,7 +101,11 @@ public class Partida {
         return tablero.getFilas();
     }
 
-    public Barra getBarraInicial() {
-        return tablero.getBarraInicial();
+    public BarraView getBarra() {
+        return tablero.getBarra();
+    }
+
+    public void moverBarra(String direccion) {
+        tablero.moverBarra(direccion);
     }
 }

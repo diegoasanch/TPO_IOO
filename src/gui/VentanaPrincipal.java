@@ -55,7 +55,7 @@ public class VentanaPrincipal extends JFrame {
 
         // testBarra = new Barra(240, 700, 85, 20, 540);  // TODO: Reemplazar por controlador
         // testBola = new Bola(200, 300,30, 30, 2, 540, 590);
-        
+
         menu = new MenuDeJuego();
 
         paneles = new JSplitPane(SwingConstants.VERTICAL, tablero, menu);
@@ -103,17 +103,18 @@ public class VentanaPrincipal extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // testBola.mover(); // TODO: Mover en el controlador
                 // tablero.setearPosicionBola(testBola.toView());  // TODO: Pedirle el view al controlador
-                
+
                 // Movemos los elementos de juego
                 Controlador.getInstance().jugar(); Controlador.getInstance();
 
                 // Renderizamos los elementos con las nuevas posiciones
                 tablero.setearPosicionBola(Controlador.getInstance().getBola());
-                
-                
+
+
 
                 // TODO: Llamar la el metodo de jugar para mover el tablero
                 // TODO: Buscar una instancia de BolaView y LadrillosView para renderizarlos
+                tablero.repaint();
             }
         });
     }
@@ -129,6 +130,7 @@ public class VentanaPrincipal extends JFrame {
         String direccion = (codigo == COD_DERECHA) ? "derecha" : "izquierda";
         Controlador.getInstance().moverBarra(direccion);
         tablero.setearPosicionBarra(Controlador.getInstance().getBarra()); // TODO: Pedirle el view al controlador
+        System.out.println("Pos Barra : " + Controlador.getInstance().getBarra().getX());
 
         // testBarra.moverBarra(direccion); // TODO: Mover en el controlador
         // tablero.setearPosicionBarra(testBarra.toView()); // TODO: Pedirle el view al controlador

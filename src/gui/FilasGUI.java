@@ -16,6 +16,7 @@ public class FilasGUI extends JPanel{
 
         this.setBounds(ancho_borde, ancho_borde, anchoTablero, altoCadaLadrillo*cantFilas + (margenLadrillo*2));
         // this.setBackground(Color.white);
+        // this.setBackground(new Color(255, 0, 0, 180));
         this.setBackground(new Color(0, 0, 0, 0));
         this.setLayout(null);
         this.setVisible(true);

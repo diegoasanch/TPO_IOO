@@ -18,7 +18,7 @@ public class Bola extends ObjetoPosicionado {
     public Bola(int posicionX, int posicionY, int tamanioX, int tamanioY, int velocidadInicial, int maxX, int maxY) {
         super(posicionX, posicionY, tamanioX, tamanioY, maxX, maxY);
         this.velocidad = velocidadInicial;
-        this.sentido = 0;
+        this.sentido = 45;
     }
 
     public void cambiarVelocidad(int velocidad) {
@@ -28,15 +28,19 @@ public class Bola extends ObjetoPosicionado {
     public void mover() {
         this.posicionX += calcMovimientoX();
         this.posicionY += calcMovimientoY();
-        System.out.println("Mov bola x: " + posicionX + " y: " + posicionY);
+        // System.out.println("Mov bola x: " + posicionX + " y: " + posicionY);
     }
 
     private int calcMovimientoX() {
-        return (int) (velocidad * Math.cos(sentido));
+        double cosAngulo = Math.cos(Math.toRadians(sentido));
+        int movX = (int) ((double)velocidad * cosAngulo);
+        return movX;
     }
 
     private int calcMovimientoY() {
-        return (int) (velocidad * Math.sin(sentido));
+        double sinAngulo = Math.sin(Math.toRadians(sentido));
+        int movY = (int) ((double)velocidad * sinAngulo);
+        return -movY;
     }
 
     // En base al angulo con el que rebota, Lateral = 90, Superior = 360
@@ -84,15 +88,19 @@ public class Bola extends ObjetoPosicionado {
         else { // Mitad Izquierda
             nuevoAngulo = 90 + anguloEntrada;
         }
-        this.sentido = nuevoAngulo;
+        this.sentido = normalizarAngulo(nuevoAngulo);
+    }
+
+    public boolean estaBajando() {
+        return 180 < sentido && sentido < 360;
     }
 
     public boolean detectarChoquePared() {
-        return (
-            this.posicionX >= this.minX
-            || this.posicionX >= this.maxX
-            || this.posicionY >= this.minY
-        );
+        boolean chocaIzq = this.posicionX <= this.minX;
+        boolean chocaDer = this.posicionX >= this.maxX;
+        boolean chocaArriba = this.posicionY <= this.minY;
+
+        return chocaIzq || chocaDer || chocaArriba;
     }
 
     private int numeroRandom(int desde, int hasta) {

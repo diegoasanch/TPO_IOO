@@ -2,6 +2,7 @@ package negocio;
 
 import java.util.*;
 
+import view.BarraView;
 import view.BolaView;
 import view.FilasView;
 import view.LadrilloView;
@@ -42,7 +43,7 @@ public class Tablero {
 
         this.bola = new Bola(
             medioTablero,
-            this.dimension_y,
+            this.dimension_y - 20,
             DimensionesBola.DIAMETRO,
             DimensionesBola.DIAMETRO,
             DimensionesBola.VELOCIDAD_INICIAL,
@@ -66,14 +67,14 @@ public class Tablero {
         if (bola.detectarChoquePared())
             bola.rebotarPared();
 
-        else if (bola.detectarLimiteInferiorTablero()) {
+        else if (bola.detectarLimiteInferiorTablero() && bola.estaBajando()) {
+            System.out.println("La barra esta en x: " + barra.getPosicionX() + " y: " + barra.getPosicionY());
             if (barra.detectarColision( // Rebota la bola con la barra
                 bola.getPosicionX(),
                 bola.getPosicionY(),
                 bola.getTamanioX(),
                 bola.getTamanioY()
-                )
-            ) {
+            )) {
                 boolean esMitadDerecha = barra.mitadDerecha(bola.getPosicionX());
                 bola.rebotarBarra(esMitadDerecha);
             }
@@ -81,10 +82,10 @@ public class Tablero {
                 partida.pierdeVida();
             }
         }
-        else if (detectarLadrilloRoto()) { // La bola esta en algun punto central del tablero
-            bola.rebotarLadrillo();
-            romperLadrillo();
-        }
+        // else if (detectarLadrilloRoto()) { // La bola esta en algun punto central del tablero
+        //     bola.rebotarLadrillo();
+        //     romperLadrillo();
+        // }
         bola.mover();
     }
 
@@ -144,7 +145,11 @@ public class Tablero {
         return bola.toView();
     }
 
-    public Barra getBarraInicial() {
-        return this.barra;
+    public BarraView getBarra() {
+        return barra.toView();
+    }
+
+    public void moverBarra(String direccion) {
+        barra.moverBarra(direccion);
     }
 }

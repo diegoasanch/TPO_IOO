@@ -10,7 +10,7 @@ public final class DimensionesBola {
 
     public static final int MAX_Y = 590;
 
-    public static final int VELOCIDAD_INICIAL = 2;
+    public static final int VELOCIDAD_INICIAL = 5;
 
     public static final int DIAMETRO = 30;
 }
