@@ -144,6 +144,11 @@ public class VentanaPrincipal extends JFrame {
     }
 
     public void terminoElJuego () {
-        JOptionPane.showInputDialog("Se quedo sin vidas, ingrese su nombre:");
+        String nombre = JOptionPane.showInputDialog("Se quedo sin vidas, ingrese su nombre:");
+        if (nombre != null) {
+            System.out.println("Ingreso nombre: " + nombre);
+            Controlador.getInstance().ingresarNombre(nombre);
+        }
+        Controlador.getInstance().reiniciarJuego();
     }
 }

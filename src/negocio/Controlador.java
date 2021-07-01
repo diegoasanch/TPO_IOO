@@ -6,8 +6,6 @@ import view.FilasView;
 
 public class Controlador {
 
-    private TopTwenty leaderboard;
-    // private ArrayList<Partida> partidas;
     private Partida partida;
     private static Controlador instancia;
 
@@ -49,7 +47,8 @@ public class Controlador {
 
     public void ingresarNombre(String nombre) {
         //if vidas = 0 caja de texto para poner nombre
-        leaderboard.ingresarNombre(nombre);
+        TopTwenty.getInstance().setPartidaActual(partida);
+        TopTwenty.getInstance().ingresarNombre(nombre);
     }
 
     public void renaudarJuego(){
@@ -92,5 +91,4 @@ public class Controlador {
     public boolean gameOver() {
         return partida.gameOver();
     }
-
 }

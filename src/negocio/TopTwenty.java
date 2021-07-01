@@ -51,6 +51,7 @@ public class TopTwenty {
             int duracion = partidaActual.calcularDuracionPartida();
             agregarRecord(nombre, puntaje, duracion);
         }
+        testShowLeaderboard();
     }
 
     private void insertarOrdenado(Registro nuevoRegistro) {
@@ -68,4 +69,9 @@ public class TopTwenty {
         return posicion;
     }
 
+    private void testShowLeaderboard() {
+        for (Registro reg : mejoresVeinte) {
+            System.out.println("Jugador: " + reg.getNombre() + "  -  Puntaje: " + reg.getPuntos());
+        }
+    }
 }
