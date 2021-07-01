@@ -9,12 +9,12 @@ import view.LadrilloView;
 
 public class LadrilloGUI extends JPanel{
 
-    private Color fill, border, transparente;
+    private Color fill, border, transparente, bg, line;
     private LadrilloView posicion;
 
     public LadrilloGUI(LadrilloView posicionInicial) {
         super();
-        fill = new Color(89, 192, 255); // rgb(89, 192, 255)
+        bg = new Color(89, 192, 255); // rgb(89, 192, 255)
         border = new Color(35, 39, 44);// rgb(35, 39, 44)
         transparente = new Color(0, 0, 0, 0);
         this.setBounds(
@@ -34,17 +34,18 @@ public class LadrilloGUI extends JPanel{
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         if (!posicion.getEstaRoto()) {
-            g.setColor(border);
-            g.drawRect(0, 0, posicion.getAncho(), posicion.getAlto());
-            g.setColor(fill);
-            g.fillRect(0, 0, posicion.getAncho(), posicion.getAlto());
+            line = border;
+            fill = bg;
         }
         else {
-            g.setColor(transparente);
-            g.drawRect(0, 0, posicion.getAncho(), posicion.getAlto());
-            g.setColor(transparente);
-            g.fillRect(0, 0, posicion.getAncho(), posicion.getAlto());
+            line = transparente;
+            fill = transparente;
         }
+        g.setColor(line);
+        g.drawRect(0, 0, posicion.getAncho(), posicion.getAlto());
+        g.setColor(fill);
+        g.fillRect(0, 0, posicion.getAncho(), posicion.getAlto());
     }
 }
