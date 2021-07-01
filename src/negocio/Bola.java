@@ -1,10 +1,10 @@
 package negocio;
-import java.lang.Math;
-import java.util.Random;
 
 import constantes.DimensionesBola;
-import view.BolaView;
 
+import java.util.Random;
+
+import view.BolaView;
 
 public class Bola extends ObjetoPosicionado {
 
@@ -33,13 +33,11 @@ public class Bola extends ObjetoPosicionado {
     public void mover() {
         this.posicionX += calcMovimientoX();
         this.posicionY += calcMovimientoY();
-        // System.out.println("Mov bola x: " + posicionX + " y: " + posicionY);
     }
 
     private int calcMovimientoX() {
         double cosAngulo = Math.cos(Math.toRadians(sentido));
-        int movX =(int) Math.round((double)velocidad * cosAngulo);
-        return movX;
+        return (int) Math.round((double)velocidad * cosAngulo);
     }
 
     private int calcMovimientoY() {

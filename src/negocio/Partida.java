@@ -72,8 +72,7 @@ public class Partida {
     public int calcularDuracionPartida() {
         long ahora = getCurrentTime();
         long nanoSegundos = ahora - inicio;
-        int segundos = (int) nanoSegundos / 1_000_000_000;
-        return segundos;
+        return (int) nanoSegundos / 1_000_000_000;
     }
 
     private long getCurrentTime() {

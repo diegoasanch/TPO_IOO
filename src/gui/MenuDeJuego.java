@@ -9,8 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import negocio.Controlador;
-import negocio.Partida;
-// import jdk.internal.platform.Container;
 
 public class MenuDeJuego extends JPanel {
     private JLabel lblMenu, lblPuntaje, lblVidas, lblNivel, valPuntos, valVidas, valNivel;

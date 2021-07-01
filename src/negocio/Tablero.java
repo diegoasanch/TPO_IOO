@@ -10,12 +10,11 @@ import view.LadrilloView;
 import constantes.DimensionTablero;
 import constantes.DimensionesBarra;
 import constantes.DimensionesBola;
-import constantes.DimensionesLadrillo;
 
 public class Tablero {
 
-    private int dimension_x;
-    private int dimension_y;
+    private int dimensionX;
+    private int dimensionY;
 
     private Partida partida;
     private Barra barra;
@@ -25,8 +24,8 @@ public class Tablero {
     private int aRomperCol;
 
     public Tablero(int nivel, Partida partida) {
-        this.dimension_x = DimensionTablero.TAMANIO_X;
-        this.dimension_y = DimensionTablero.TAMANIO_Y;
+        this.dimensionX = DimensionTablero.TAMANIO_X;
+        this.dimensionY = DimensionTablero.TAMANIO_Y;
         this.partida = partida;
 
         agregarFilas();
@@ -35,8 +34,8 @@ public class Tablero {
     }
 
     public void agregarFilas() {
-        this.filas = new ArrayList<Fila>(5);
-        int puntajes[] = new int[]{ 50, 40, 30, 20, 10 };
+        this.filas = new ArrayList<>(5);
+        int[] puntajes = new int[]{ 50, 40, 30, 20, 10 };
 
         for (int i = 0; i < 5; i++)
             filas.add(new Fila(puntajes[i], i));
@@ -51,19 +50,19 @@ public class Tablero {
             DimensionesBola.DIAMETRO,
             DimensionesBola.DIAMETRO,
             velocidad,
-            this.dimension_x,
-            (this.dimension_y - DimensionTablero.BORDE)
+            this.dimensionX,
+            (this.dimensionY - DimensionTablero.BORDE)
         );
     }
 
     public void crearBarra() {
-        int medioTablero = this.dimension_x / 2;
+        int medioTablero = this.dimensionX / 2;
         this.barra = new Barra(
             medioTablero,
-            this.dimension_y - DimensionTablero.BORDE,
+            this.dimensionY - DimensionTablero.BORDE,
             DimensionesBarra.TAMANIO_X,
             DimensionesBarra.TAMANIO_Y,
-            this.dimension_x
+            this.dimensionX
         );
     }
 
@@ -96,7 +95,7 @@ public class Tablero {
 
 
     public void calcularPos() {
-
+        // TODO: Ver que onda esto???
     }
 
     public boolean detectarLadrilloRoto() {

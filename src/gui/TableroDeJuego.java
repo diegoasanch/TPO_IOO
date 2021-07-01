@@ -1,48 +1,38 @@
 package gui;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.awt.Dimension;
 import java.awt.Color;
+import java.awt.Dimension;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import constantes.DimensionTablero;
-import negocio.Controlador;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 import view.BarraView;
 import view.BolaView;
 import view.FilasView;
-import view.LadrilloView;
 
 public class TableroDeJuego extends JPanel {
-    private int WIDTH;
-    private int HEIGHT;
-    private int BORDE;
-    private Color borderColor, background;
+    private int tableroWidth;
+    private int tableroHeight;
+    private int borde;
+    private Color borderColor, bgColor;
     private BarraGUI barra;
     private BolaGUI bola;
-    // private JLabel bola;
     private FilasGUI filas;
-
-    private int posX, posY, diametro;
 
     public TableroDeJuego(BarraView posBarraInicial, BolaView posBolaInicial, FilasView posFilasInicial) {
         super();
-        this.WIDTH = DimensionTablero.TAMANIO_X;
-        this.HEIGHT = DimensionTablero.TAMANIO_Y;
-        this.BORDE = DimensionTablero.BORDE;
+        this.tableroWidth = DimensionTablero.TAMANIO_X;
+        this.tableroHeight = DimensionTablero.TAMANIO_Y;
+        this.borde = DimensionTablero.BORDE;
         borderColor = new Color(87, 181, 253); // rgb(87, 181, 253)
-        background = new Color(235, 235, 235);  // rgb(235, 235, 235)
-        // background = new Color(0, 0, 0, 100);  // rgba(235, 0, 0, 100)
+        bgColor = new Color(235, 235, 235);  // rgb(235, 235, 235)
+        // bgColor = new Color(0, 0, 0, 100);  // rgba(235, 0, 0, 100)
 
-        this.setPreferredSize(new Dimension(WIDTH+(2*BORDE), HEIGHT));
-        this.setBackground(background);
-        this.setBorder(BorderFactory.createMatteBorder(BORDE, BORDE, 0, BORDE, borderColor));
+        this.setPreferredSize(new Dimension(tableroWidth+(2*borde), tableroHeight));
+        this.setBackground(bgColor);
+        this.setBorder(BorderFactory.createMatteBorder(borde, borde, 0, borde, borderColor));
         this.setLayout(null);
 
         configurar(posBarraInicial, posBolaInicial, posFilasInicial);
@@ -50,14 +40,11 @@ public class TableroDeJuego extends JPanel {
 
     private void configurar(BarraView posBarraInicial, BolaView posBolaInicial, FilasView posFilasInicial) {
 
-        barra = new BarraGUI(this.WIDTH, this.HEIGHT, BORDE, posBarraInicial);
-        filas = new FilasGUI(WIDTH, 5, BORDE, posFilasInicial);
-        bola = new BolaGUI(WIDTH, HEIGHT, BORDE, posBolaInicial);
+        barra = new BarraGUI(this.tableroWidth, this.tableroHeight, borde, posBarraInicial);
+        filas = new FilasGUI(tableroWidth, 5, borde, posFilasInicial);
+        bola = new BolaGUI(tableroWidth, tableroHeight, borde, posBolaInicial);
 
-        // bola = new JLabel(new ImageIcon(getClass().getResource("Assets/bola.png")));
         setearPosicionBola(posBolaInicial);
-        // bola = new BolaGUI(WIDTH, HEIGHT, BORDE, posBolaInicial);
-
 
         this.add(bola);
         this.add(filas);
@@ -69,11 +56,6 @@ public class TableroDeJuego extends JPanel {
     }
 
     public void setearPosicionBola(BolaView posicion) {
-        posX = posicion.getX();
-        posY = posicion.getY();
-        diametro = posicion.getDiametro();
-        // bola.setBounds(posX, posY, diametro, diametro);
-
         bola.setPosicion(posicion);
     }
 

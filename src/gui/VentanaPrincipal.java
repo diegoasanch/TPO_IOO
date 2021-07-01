@@ -1,7 +1,7 @@
 package gui;
 
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -12,8 +12,8 @@ import javax.swing.Timer;
 
 import negocio.Controlador;
 
-import view.BolaView;
 import view.BarraView;
+import view.BolaView;
 import view.FilasView;
 
 public class VentanaPrincipal extends JFrame {
@@ -26,8 +26,6 @@ public class VentanaPrincipal extends JFrame {
     private static final int GAME_LOOP_DELAY = 30;
 
     private TableroDeJuego tablero;
-    private MenuDeJuego menu;
-    private JSplitPane paneles;
     private Timer timer;
 
     public VentanaPrincipal() {
@@ -44,9 +42,9 @@ public class VentanaPrincipal extends JFrame {
         FilasView posFilasInicial = Controlador.getInstance().getFilas();
         tablero = new TableroDeJuego(posBarraInicial, posBolaInicial, posFilasInicial);
 
-        menu = new MenuDeJuego();
+        MenuDeJuego menu = new MenuDeJuego();
 
-        paneles = new JSplitPane(SwingConstants.VERTICAL, tablero, menu);
+        JSplitPane paneles = new JSplitPane(SwingConstants.VERTICAL, tablero, menu);
         paneles.setOrientation(SwingConstants.VERTICAL);
         paneles.setEnabled(false); // Para que no se pueda modificar el tamanio
 

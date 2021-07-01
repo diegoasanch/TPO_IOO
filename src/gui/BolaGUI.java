@@ -1,14 +1,11 @@
 package gui;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import view.BolaView;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import constantes.DimensionTablero;
 
 public class BolaGUI extends JPanel {
 
@@ -26,8 +23,6 @@ public class BolaGUI extends JPanel {
         posX = posicion.getX();
         posY = posicion.getY();
         diametro = posicion.getDiametro();
-        // bola.setBounds(posX, posY, diametro, diametro);
-        // this.repaint();
     }
 
     @Override

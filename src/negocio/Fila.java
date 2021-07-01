@@ -9,20 +9,20 @@ public class Fila {
 
     private int puntaje;
     private int indice; // De arriba a abajo
-    private int dimension_y;
+    private int dimensionY;
     private ArrayList<Ladrillo> ladrillos;
 
 
     public Fila(int puntaje, int indice) {
         this.puntaje = puntaje;
         this.indice = indice;
-        this.dimension_y = DimensionesLadrillo.TAMANIO_Y;
+        this.dimensionY = DimensionesLadrillo.TAMANIO_Y;
 
         agregarLadrillos();
     }
 
     public void agregarLadrillos() {
-        this.ladrillos = new ArrayList<Ladrillo>(5);
+        this.ladrillos = new ArrayList<>(5);
 
         final int MOV_X_Y = 0;
 
@@ -55,8 +55,8 @@ public class Fila {
     }
 
     public boolean soyLaFila(int posY, int tamanio) {
-        int minY = (indice * dimension_y) + DimensionesLadrillo.MARGEN;
-        int maxY = ((indice + 1) * dimension_y) + DimensionesLadrillo.MARGEN;
+        int minY = (indice * dimensionY) + DimensionesLadrillo.MARGEN;
+        int maxY = ((indice + 1) * dimensionY) + DimensionesLadrillo.MARGEN;
         int bolaSuperior = posY;
         int bolaInferior = posY + tamanio;
         return (
@@ -105,7 +105,7 @@ public class Fila {
     }
 
     private int determinaLadoChoque(int posX, int posY, int diametro, Ladrillo aRomper) {
-        int ladCentroY = (dimension_y * 2 * ((indice) + 1)) / 2 + DimensionesLadrillo.MARGEN;
+        int ladCentroY = (dimensionY * 2 * ((indice) + 1)) / 2 + DimensionesLadrillo.MARGEN;
         int ladLadoIzq = aRomper.getPosicionX();
         int ladLadoDer = aRomper.getPosicionX() + aRomper.getTamanioX();
 
