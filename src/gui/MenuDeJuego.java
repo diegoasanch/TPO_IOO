@@ -6,13 +6,20 @@ import java.awt.Font;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import negocio.Controlador;
 
 public class MenuDeJuego extends JPanel {
-    private JLabel lblMenu, lblPuntaje, lblVidas, lblNivel, valPuntos, valVidas, valNivel;
+    private JLabel lblMenu, lblPuntaje, lblVidas, lblNivel, lblTitulo, valPuntos, valVidas, valNivel;
     private JButton btnPlayPause;
+    private JPanel datos, ranking;
 
     public MenuDeJuego() {
         super();
@@ -20,8 +27,18 @@ public class MenuDeJuego extends JPanel {
     }
 
     private void configurar() {
+        configurarDatos();
+        configurarRankings();
+
+        JSplitPane menus = new JSplitPane(SwingConstants.HORIZONTAL, datos, ranking);
+        this.add(menus);
+    }
+
+    private void configurarDatos() {
+        datos = new JPanel();
+
         String fontType = "Arial";
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        datos.setLayout(new BoxLayout(datos, BoxLayout.Y_AXIS));
         Font h1 = new Font(fontType, Font.BOLD, 40);
         Font h2 = new Font(fontType, Font.BOLD, 20);
         Font value = new Font(fontType, Font.BOLD, 30);
@@ -44,7 +61,6 @@ public class MenuDeJuego extends JPanel {
         valNivel.setFont(value);
 
         //btnPlayPause = new JButton("Play/Pausa");
-
         float center = 0.5f;
         lblMenu.setAlignmentX(center);
         lblPuntaje.setAlignmentX(center);
@@ -55,19 +71,39 @@ public class MenuDeJuego extends JPanel {
         lblNivel.setAlignmentX(center);
         valNivel.setAlignmentX(center);
 
-        this.add(lblMenu);
-        this.add(lblVidas);
-        this.add(valVidas);
-        this.add(lblPuntaje);
-        this.add(valPuntos);
-        this.add(lblVidas);
-        this.add(valVidas);
-        // this.add(btnPlayPause);
-        this.setBackground(Color.white);
+        datos.add(lblMenu);
+        datos.add(lblNivel);
+        datos.add(valNivel);
+        datos.add(lblVidas);
+        datos.add(valVidas);
+        datos.add(lblPuntaje);
+        datos.add(valPuntos);
+        // datos.add(btnPlayPause);
+        datos.setBackground(Color.white);
+    }
+
+    public void configurarRankings(){
+        ranking = new JPanel();
+
+        String fontType = "Arial";
+        ranking.setLayout(new BoxLayout(ranking, BoxLayout.Y_AXIS));
+        Font h1 = new Font(fontType, Font.BOLD, 40);
+        Font h2 = new Font(fontType, Font.BOLD, 20);
+        Font value = new Font(fontType, Font.BOLD, 30);
+
+        lblTitulo = new JLabel("Mejores puntajes");
+        lblTitulo.setFont(h1);
+
     }
 
     public void setearValores(int vidas, int puntaje) {
         this.valVidas.setText(String.valueOf(Controlador.getInstance().getVidas()));
         this.valPuntos.setText(String.valueOf(Controlador.getInstance().getPuntaje()));
+    }
+
+    public void terminoElJuego (boolean gameOver) {
+        if (gameOver)
+            JOptionPane.showInputDialog("Se quedo sin vidas, ingrese su nombre:");
+
     }
 }

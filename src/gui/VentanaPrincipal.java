@@ -46,7 +46,7 @@ public class VentanaPrincipal extends JFrame {
 
         JSplitPane paneles = new JSplitPane(SwingConstants.VERTICAL, tablero, menu);
         paneles.setOrientation(SwingConstants.VERTICAL);
-        paneles.setEnabled(false); // Para que no se pueda modificar el tamanio
+        paneles.setEnabled(false); // Para que no se pueda modificar el tamanio        
 
         this.add(paneles);
         this.setSize(800, 650);

@@ -33,6 +33,13 @@ public class Partida {
 
         if (tablero.seRompieronTodosLosLadrillos())
             subirNivel();
+        
+        if (vida == 0)
+            gameOver();
+    }
+
+    public boolean gameOver() {
+        return true;
     }
 
     public void subirNivel() {
