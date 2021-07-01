@@ -93,4 +93,8 @@ public class Controlador {
         return partida.gameOver();
     }
 
+    public int getNivel() {
+        return partida.getNivel();
+    }
+
 }
