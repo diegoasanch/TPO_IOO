@@ -67,7 +67,6 @@ public class VentanaPrincipal extends JFrame {
             @Override
             public void keyPressed(KeyEvent key) {
                 int codigo = key.getKeyCode();
-                System.out.println("Pressed: " + '"' + codigo + "'");
 
                 switch (codigo) {
                     case COD_ESPACIO:
@@ -79,7 +78,7 @@ public class VentanaPrincipal extends JFrame {
                         moverBarra(codigo);
                         break;
                     default:
-                        System.out.println("Tecla sin accion");
+                        System.out.println("Tecla sin accion: " + '"' + codigo + "'");
                 }
             }
         });
@@ -112,10 +111,14 @@ public class VentanaPrincipal extends JFrame {
     }
 
     private void playPause() {
-        if (timer.isRunning())
+        if (timer.isRunning()) {
+            System.out.println("Pausa");
             pausar();
-        else
+        }
+        else {
+            System.out.println("Play");
             play();
+        }
     }
 
     private void pausar() {
@@ -132,6 +135,7 @@ public class VentanaPrincipal extends JFrame {
             String direccion = (codigo == COD_DERECHA) ? "derecha" : "izquierda";
             Controlador.getInstance().moverBarra(direccion);
             actualizarBarraGUI();
+            System.out.println("Moviendo barra a la " + direccion);
         }
     }
 
