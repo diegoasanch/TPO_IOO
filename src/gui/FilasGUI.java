@@ -50,14 +50,19 @@ public class FilasGUI extends JPanel{
 
     public void dibujarLadrillos(FilasView filasToDraw) {
         LadrilloGUI actual;
+        LadrilloView actualToDraw;
         List<List<LadrilloView>> toDraw = filasToDraw.getFilas();
 
         for (int fila = 0; fila < filas; fila++) {
             for (int col = 0; col < columnas; col++) {
+                actualToDraw = toDraw.get(fila).get(col);
                 actual = ladrillos.get(fila).get(col);
-                actual.setPosicion(toDraw.get(fila).get(col));
+                actual.setPosicion(actualToDraw);
+                // System.out.print((actualToDraw.getEstaRoto() ? " " : 'x') + " ");
             }
+            // System.out.println();
         }
+        // System.out.println("\n\n\n\n");
     }
 
 }

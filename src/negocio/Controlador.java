@@ -10,6 +10,10 @@ public class Controlador {
     private static Controlador instancia;
 
     private Controlador() {
+        comienzaJuego();
+    }
+
+    private void comienzaJuego() {
         this.partida = new Partida();
         partida.iniciarJuego();
     }
@@ -94,6 +98,10 @@ public class Controlador {
 
     public int getNivel() {
         return partida.getNivel();
+    }
+
+    public void reiniciarJuego() {
+        comienzaJuego();
     }
 
 }
