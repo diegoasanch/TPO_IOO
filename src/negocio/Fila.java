@@ -39,12 +39,19 @@ public class Fila {
         }
     }
 
-    public void romperLadrillo(int posicion, int tamanio) {
-        Ladrillo aRomper = buscarLadrillo(posicion, tamanio);
-        if (aRomper != null) {
+    /**
+     * Retorna el lado por el cual choco la bola
+     */
+    public int romperLadrillo(int indice, int posicionX, int posicionY, int tamanio) {
+        Ladrillo aRomper = ladrillos.get(indice);
+        if (indice != -1) {
             System.out.println("Rompiendo ladrillo: " + indice + ' ' + aRomper.getIndice());
             aRomper.destruccionLadrillo();
+            int ladoChoque = determinaLadoChoque(posicionX, posicionY, tamanio, aRomper);
+            System.out.println("Lado de choque: " + ladoChoque);
+            return ladoChoque;
         }
+        return -1;
     }
 
     public boolean soyLaFila(int posY, int tamanio) {
@@ -69,11 +76,12 @@ public class Fila {
         return resultado;
     }
 
-    public boolean detectarLadrilloRoto(int posX, int posY, int tamanio) {
+    public int detectarLadrilloRoto(int posX, int posY, int tamanio) {
         Ladrillo ladrilloActual = buscarLadrillo(posX, tamanio);
-        if (ladrilloActual != null && !ladrilloActual.estaRoto())
-            return ladrilloActual.detectarColision(posX, posY, tamanio);
-        return false;
+        if (ladrilloActual != null && !ladrilloActual.estaRoto() && ladrilloActual.detectarColision(posX, posY, tamanio)) {
+            return ladrilloActual.getIndice();
+        }
+        return -1;
     }
 
     public int getPuntaje() {
@@ -94,5 +102,37 @@ public class Fila {
         for (Ladrillo ladrillo : ladrillos)
             fila.add(ladrillo.toView());
         return fila;
+    }
+
+    private int determinaLadoChoque(int posX, int posY, int diametro, Ladrillo aRomper) {
+        int ladCentroY = (dimension_y * 2 * ((indice) + 1)) / 2 + DimensionesLadrillo.MARGEN;
+        int ladLadoIzq = aRomper.getPosicionX();
+        int ladLadoDer = aRomper.getPosicionX() + aRomper.getTamanioX();
+
+        int bolaCentroX = posX + (diametro/2);
+        int bolaCentroY = posY + (diametro/2);
+        int lado = 0; // default
+
+        if (bolaCentroY <= ladCentroY) { // Lado arriba
+            if (bolaCentroX >= ladLadoIzq && bolaCentroX <= ladLadoDer)
+                lado = 0;
+            else if (bolaCentroX < ladLadoIzq)
+                lado = 1;
+            else
+                lado = 3;
+        }
+        else {
+            if (bolaCentroX >= ladLadoIzq && bolaCentroX <= ladLadoDer)
+                lado = 2;
+            else if (bolaCentroX < ladLadoIzq)
+                lado = 1;
+            else
+                lado = 3;
+        }
+        return lado;
+    }
+
+    public int getIndice() {
+        return indice;
     }
 }
