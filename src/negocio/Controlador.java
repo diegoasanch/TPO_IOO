@@ -89,4 +89,8 @@ public class Controlador {
         partida.deshaceFlagVida();
     }
 
+    public boolean gameOver() {
+        return partida.gameOver();
+    }
+
 }

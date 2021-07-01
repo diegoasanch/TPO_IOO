@@ -35,13 +35,13 @@ public class Partida {
 
         if (tablero.seRompieronTodosLosLadrillos())
             subirNivel();
-        
+
         if (vida == 0)
             gameOver();
     }
 
     public boolean gameOver() {
-        return true;
+        return vida < 1;
     }
 
     public void subirNivel() {
@@ -94,9 +94,9 @@ public class Partida {
     }
 
     public void pierdeVida() {
-        System.out.println("Pierde vida");
         perdioUnaVida = true;
         modificarVidas(-1);
+        System.out.println("Pierde vida, vidas restantes: " + vida);
     }
 
     public int getVida() {

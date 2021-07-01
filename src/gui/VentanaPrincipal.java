@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
@@ -46,7 +47,7 @@ public class VentanaPrincipal extends JFrame {
 
         JSplitPane paneles = new JSplitPane(SwingConstants.VERTICAL, tablero, menu);
         paneles.setOrientation(SwingConstants.VERTICAL);
-        paneles.setEnabled(false); // Para que no se pueda modificar el tamanio        
+        paneles.setEnabled(false); // Para que no se pueda modificar el tamanio
 
         this.add(paneles);
         this.setSize(800, 650);
@@ -95,6 +96,13 @@ public class VentanaPrincipal extends JFrame {
                     timer.stop();
                     actualizarBarraGUI();
                 }
+                if (Controlador.getInstance().gameOver()) {
+                    terminoElJuego();
+                    // abrir al popup
+                    //  - Al apretar el boton enviar el texto a controlador
+                    // Frenar el timer
+
+                }
 
                 // Renderizamos los elementos con las nuevas posiciones
                 tablero.setearPosicionBola(Controlador.getInstance().getBola());
@@ -133,5 +141,9 @@ public class VentanaPrincipal extends JFrame {
 
     private void iniciarJuego() {
         //TODO: Llamar el incio del juego
+    }
+
+    public void terminoElJuego () {
+        JOptionPane.showInputDialog("Se quedo sin vidas, ingrese su nombre:");
     }
 }

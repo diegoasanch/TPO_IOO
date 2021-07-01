@@ -100,10 +100,4 @@ public class MenuDeJuego extends JPanel {
         this.valVidas.setText(String.valueOf(Controlador.getInstance().getVidas()));
         this.valPuntos.setText(String.valueOf(Controlador.getInstance().getPuntaje()));
     }
-
-    public void terminoElJuego (boolean gameOver) {
-        if (gameOver)
-            JOptionPane.showInputDialog("Se quedo sin vidas, ingrese su nombre:");
-
-    }
 }
