@@ -91,4 +91,9 @@ public class Controlador {
     public boolean gameOver() {
         return partida.gameOver();
     }
+
+    public int getNivel() {
+        return partida.getNivel();
+    }
+
 }

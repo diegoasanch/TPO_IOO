@@ -108,6 +108,8 @@ public class VentanaPrincipal extends JFrame {
                 tablero.setearPosicionBola(Controlador.getInstance().getBola());
                 tablero.setearEstadoLadrillos(Controlador.getInstance().getFilas());
 
+                menu.setearValores();
+
                 tablero.repaint();
             }
         });
