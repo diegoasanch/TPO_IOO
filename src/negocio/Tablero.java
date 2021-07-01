@@ -43,8 +43,6 @@ public class Tablero {
 
     public void crearBola(int velocidad) {
         this.bola = new Bola(
-            // medioTablero,
-            // this.dimension_y - 20,
             DimensionesBola.POS_INI_X,
             DimensionesBola.POS_INI_Y,
             DimensionesBola.DIAMETRO,
@@ -56,7 +54,7 @@ public class Tablero {
     }
 
     public void crearBarra() {
-        int medioTablero = this.dimensionX / 2;
+        int medioTablero = (this.dimensionX / 2) - (DimensionesBarra.TAMANIO_X / 2);
         this.barra = new Barra(
             medioTablero,
             this.dimensionY - DimensionTablero.BORDE,
@@ -83,6 +81,8 @@ public class Tablero {
             }
             else { // La bola se sale del tablero
                 partida.pierdeVida();
+                // partida.pausar();
+                resetearBola();
             }
         }
         else if (detectarLadrilloRoto()) { // La bola esta en algun punto central del tablero
@@ -166,5 +166,10 @@ public class Tablero {
 
     public void moverBarra(String direccion) {
         barra.moverBarra(direccion);
+    }
+
+    private void resetearBola() {
+        crearBarra();
+        crearBola(partida.getNivel());
     }
 }

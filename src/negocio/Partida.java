@@ -13,6 +13,7 @@ public class Partida {
     private int puntos;
     private boolean estadoJugando;
     private long inicio;
+    private boolean perdioUnaVida;
 
     private Tablero tablero;
 
@@ -21,6 +22,7 @@ public class Partida {
         this.vida = 3;
         this.puntos = 0;
         this.estadoJugando = false;
+        this.perdioUnaVida = false;
     }
 
     public void iniciarJuego() {
@@ -93,6 +95,7 @@ public class Partida {
 
     public void pierdeVida() {
         System.out.println("Pierde vida");
+        perdioUnaVida = true;
         modificarVidas(-1);
     }
 
@@ -115,4 +118,17 @@ public class Partida {
     public void moverBarra(String direccion) {
         tablero.moverBarra(direccion);
     }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public boolean perdioVida() {
+        return perdioUnaVida;
+    }
+
+    public void deshaceFlagVida() {
+        perdioUnaVida = false;
+    }
+
 }
