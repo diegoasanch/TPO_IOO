@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import negocio.Controlador;
 import negocio.Partida;
 // import jdk.internal.platform.Container;
 
@@ -44,7 +45,7 @@ public class MenuDeJuego extends JPanel {
         valNivel = new JLabel ("xxxx");
         valNivel.setFont(value);
 
-        btnPlayPause = new JButton("Play/Pausa");
+        //btnPlayPause = new JButton("Play/Pausa");
 
         float center = 0.5f;
         lblMenu.setAlignmentX(center);
@@ -52,19 +53,23 @@ public class MenuDeJuego extends JPanel {
         lblVidas.setAlignmentX(center);
         valPuntos.setAlignmentX(center);
         valVidas.setAlignmentX(center);
-        btnPlayPause.setAlignmentX(center);
+        // btnPlayPause.setAlignmentX(center);
+        lblNivel.setAlignmentX(center);
+        valNivel.setAlignmentX(center);
 
         this.add(lblMenu);
+        this.add(lblVidas);
+        this.add(valVidas);
         this.add(lblPuntaje);
         this.add(valPuntos);
         this.add(lblVidas);
         this.add(valVidas);
-        this.add(btnPlayPause);
+        // this.add(btnPlayPause);
         this.setBackground(Color.white);
     }
 
     public void setearValores(int vidas, int puntaje) {
-        // this.valVidas.setText(String.valueOf(getVida()));
-        this.valPuntos.setText(String.valueOf(puntaje));
+        this.valVidas.setText(String.valueOf(Controlador.getInstance().getVidas()));
+        this.valPuntos.setText(String.valueOf(Controlador.getInstance().getPuntaje()));
     }
 }

@@ -73,6 +73,10 @@ public class Controlador {
         return partida.getVida();
     }
 
+    public int getPuntaje(){
+        return partida.obtienePuntajeTotal();
+    }
+
 
 
 }
