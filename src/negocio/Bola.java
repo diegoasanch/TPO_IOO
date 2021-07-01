@@ -20,8 +20,7 @@ public class Bola extends ObjetoPosicionado {
     private Random random;
 
     public Bola(int posicionX, int posicionY, int tamanioX, int tamanioY, int velocidadInicial, int maxX, int maxY) {
-        super(posicionX, maxY, tamanioX, tamanioY, maxX, maxY);
-        // super(posicionX, posicionY, tamanioX, tamanioY, maxX, maxY);
+        super(posicionX, posicionY, tamanioX, tamanioY, maxX, maxY);
         this.velocidad = velocidadInicial * DimensionesBola.MULTIPLO_VELOCIDAD;
         this.sentido = DimensionesBola.SENTIDO_INICIAL;
         random = new Random();
