@@ -1,7 +1,10 @@
 package negocio;
 import java.lang.Math;
+import java.util.Random;
 
+import constantes.DimensionesBola;
 import view.BolaView;
+
 
 public class Bola extends ObjetoPosicionado {
 
@@ -14,11 +17,13 @@ public class Bola extends ObjetoPosicionado {
      * Abajo = 270
      */
     private int sentido;
+    private Random random;
 
     public Bola(int posicionX, int posicionY, int tamanioX, int tamanioY, int velocidadInicial, int maxX, int maxY) {
         super(posicionX, posicionY, tamanioX, tamanioY, maxX, maxY);
-        this.velocidad = velocidadInicial;
-        this.sentido = 45;
+        this.velocidad = velocidadInicial * DimensionesBola.MULTIPLO_VELOCIDAD;
+        this.sentido = DimensionesBola.SENTIDO_INICIAL;
+        random = new Random();
     }
 
     public void cambiarVelocidad(int velocidad) {
@@ -33,14 +38,14 @@ public class Bola extends ObjetoPosicionado {
 
     private int calcMovimientoX() {
         double cosAngulo = Math.cos(Math.toRadians(sentido));
-        int movX = (int) ((double)velocidad * cosAngulo);
+        int movX =(int) Math.round((double)velocidad * cosAngulo);
         return movX;
     }
 
     private int calcMovimientoY() {
         double sinAngulo = Math.sin(Math.toRadians(sentido));
-        int movY = (int) ((double)velocidad * sinAngulo);
-        return -movY;
+        int movY = (int) Math.round((double)velocidad * sinAngulo);
+        return -movY; // Negativo porque Y=0 es el tope del tablero
     }
 
     // En base al angulo con el que rebota, Lateral = 90, Superior = 360
@@ -52,9 +57,9 @@ public class Bola extends ObjetoPosicionado {
 
     private int anguloRebote() {
         int angulo = 0;
-        if (this.posicionX == this.minX || this.posicionX == maxX) // Rebota con laterales
+        if (this.posicionX <= this.minX || this.posicionX >= maxX) // Rebota con laterales
             angulo = 90;
-        else if (this.posicionY == this.minY)
+        else if (this.posicionY <= this.minY)
             angulo = 360;
         return angulo;
     }
@@ -74,21 +79,29 @@ public class Bola extends ObjetoPosicionado {
         return this.posicionY >= this.maxY;
     }
 
-    public void rebotarLadrillo() {
-        int nuevoAngulo = numeroRandom(180+85, 180+95);
-        this.sentido = nuevoAngulo;
+    /**
+     * Lados disponibles [0, 1, 2, 3] = [arriba, izquierda, debajo, derecha]
+     * @param lado
+     */
+    public void rebotarLadrillo(int lado) {
+        int anguloBase = lado * 90;
+        int anguloRandom = numeroRandom(80, 100);
+        this.sentido = anguloBase + anguloRandom;
+        System.out.println("nuevoAngulo: " + this.sentido);
     }
 
     public void rebotarBarra(boolean mitadDerecha) {
         int anguloEntrada = anguloDeEntradaBarra();
         int nuevoAngulo;
+        System.out.println("Angulo de entrada: " + anguloEntrada + " Lado de rebote: " + (mitadDerecha ? "Derecha" : "Izquierda"));
         if (mitadDerecha) {
             nuevoAngulo = 60 + anguloEntrada;
         }
         else { // Mitad Izquierda
-            nuevoAngulo = 90 + anguloEntrada;
+            nuevoAngulo = 100 + anguloEntrada;
         }
         this.sentido = normalizarAngulo(nuevoAngulo);
+        System.out.println("Nuevo angulo " + this.sentido);
     }
 
     public boolean estaBajando() {
@@ -104,7 +117,7 @@ public class Bola extends ObjetoPosicionado {
     }
 
     private int numeroRandom(int desde, int hasta) {
-        return (int) Math.round(Math.random() * (hasta-desde+1) + desde);
+        return desde + random.nextInt(hasta - desde + 1);
     }
 
     /**

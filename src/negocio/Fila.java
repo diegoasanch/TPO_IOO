@@ -16,7 +16,7 @@ public class Fila {
     public Fila(int puntaje, int indice) {
         this.puntaje = puntaje;
         this.indice = indice;
-        this.dimension_y = 50; //TODO: ver tamaño
+        this.dimension_y = DimensionesLadrillo.TAMANIO_Y;
 
         agregarLadrillos();
     }
@@ -24,8 +24,6 @@ public class Fila {
     public void agregarLadrillos() {
         this.ladrillos = new ArrayList<Ladrillo>(5);
 
-        final int anchoLadrillo = 60;
-        final int margen = 15;
         final int MOV_X_Y = 0;
 
         for (int indiceCol = 0; indiceCol < 5; indiceCol++) {
@@ -36,26 +34,41 @@ public class Fila {
                 DimensionesLadrillo.TAMANIO_Y,
                 MOV_X_Y,
                 MOV_X_Y,
-                indice
+                indiceCol
             ));
         }
     }
 
-    public void romperLadrillo(int posicion) {
-        Ladrillo aRomper = buscarLadrillo(posicion);
-        if (aRomper != null) {
+    /**
+     * Retorna el lado por el cual choco la bola
+     */
+    public int romperLadrillo(int indice, int posicionX, int posicionY, int tamanio) {
+        Ladrillo aRomper = ladrillos.get(indice);
+        if (indice != -1) {
+            System.out.println("Rompiendo ladrillo: " + indice + ' ' + aRomper.getIndice());
             aRomper.destruccionLadrillo();
+            int ladoChoque = determinaLadoChoque(posicionX, posicionY, tamanio, aRomper);
+            System.out.println("Lado de choque: " + ladoChoque);
+            return ladoChoque;
         }
+        return -1;
     }
 
-    public boolean soyLaFila(int posY) {
-        return posY >= indice && posY <= indice + dimension_y;
+    public boolean soyLaFila(int posY, int tamanio) {
+        int minY = (indice * dimension_y) + DimensionesLadrillo.MARGEN;
+        int maxY = ((indice + 1) * dimension_y) + DimensionesLadrillo.MARGEN;
+        int bolaSuperior = posY;
+        int bolaInferior = posY + tamanio;
+        return (
+            bolaSuperior >= minY && bolaSuperior <= maxY ||
+            bolaInferior >= minY && bolaInferior <= minY
+        );
     }
 
-    private Ladrillo buscarLadrillo(int posX) {
+    private Ladrillo buscarLadrillo(int posX, int tamanio) {
         Ladrillo resultado = null;
         for (Ladrillo lad : ladrillos) {
-            if (lad.soyElLadrillo(posX)) {
+            if (lad.soyElLadrillo(posX, tamanio)) {
                 resultado = lad;
                 break;
             }
@@ -63,13 +76,12 @@ public class Fila {
         return resultado;
     }
 
-    public boolean detectarLadrilloRoto(int posX, int posY, int tamanio) {
-        Ladrillo ladrilloActual = buscarLadrillo(posX);
-        if (ladrilloActual != null) {
-            if (!ladrilloActual.estaRoto())
-                return ladrilloActual.detectarColision(posX, posY, tamanio);
+    public int detectarLadrilloRoto(int posX, int posY, int tamanio) {
+        Ladrillo ladrilloActual = buscarLadrillo(posX, tamanio);
+        if (ladrilloActual != null && !ladrilloActual.estaRoto() && ladrilloActual.detectarColision(posX, posY, tamanio)) {
+            return ladrilloActual.getIndice();
         }
-        return false;
+        return -1;
     }
 
     public int getPuntaje() {
@@ -90,5 +102,37 @@ public class Fila {
         for (Ladrillo ladrillo : ladrillos)
             fila.add(ladrillo.toView());
         return fila;
+    }
+
+    private int determinaLadoChoque(int posX, int posY, int diametro, Ladrillo aRomper) {
+        int ladCentroY = (dimension_y * 2 * ((indice) + 1)) / 2 + DimensionesLadrillo.MARGEN;
+        int ladLadoIzq = aRomper.getPosicionX();
+        int ladLadoDer = aRomper.getPosicionX() + aRomper.getTamanioX();
+
+        int bolaCentroX = posX + (diametro/2);
+        int bolaCentroY = posY + (diametro/2);
+        int lado = 0; // default
+
+        if (bolaCentroY <= ladCentroY) { // Lado arriba
+            if (bolaCentroX >= ladLadoIzq && bolaCentroX <= ladLadoDer)
+                lado = 0;
+            else if (bolaCentroX < ladLadoIzq)
+                lado = 1;
+            else
+                lado = 3;
+        }
+        else {
+            if (bolaCentroX >= ladLadoIzq && bolaCentroX <= ladLadoDer)
+                lado = 2;
+            else if (bolaCentroX < ladLadoIzq)
+                lado = 1;
+            else
+                lado = 3;
+        }
+        return lado;
+    }
+
+    public int getIndice() {
+        return indice;
     }
 }

@@ -10,8 +10,6 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
-import negocio.Barra;
-import negocio.Bola;
 import negocio.Controlador;
 
 import view.BolaView;
@@ -25,36 +23,26 @@ public class VentanaPrincipal extends JFrame {
     private static final int COD_IZQUIERDA = 37;
     private static final int COD_DERECHA = 39;
     private static final int COD_ESPACIO = 32;
-    private static final int GAME_LOOP_DELAY = 50;
+    private static final int GAME_LOOP_DELAY = 30;
 
     private TableroDeJuego tablero;
     private MenuDeJuego menu;
     private JSplitPane paneles;
     private Timer timer;
 
-    // private Barra testBarra; // TODO: QUITAR BARRA DE PRUEBA
-    // private Bola testBola; // TODO: QUITAR BOLA DE PRUEBA
-
-    // private Controlador controlador;
-
     public VentanaPrincipal() {
         this.setTitle("Arkanoid");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        // Controlador.getInstance();
         configurar();
 
     }
 
     public void configurar() {
-        // TODO: Inicializar el juego (inciarJuego() o jugar() o play())
         Controlador.getInstance().iniciarJuego();
         BolaView posBolaInicial = Controlador.getInstance().getBola();
         BarraView posBarraInicial = Controlador.getInstance().getBarra();
         FilasView posFilasInicial = Controlador.getInstance().getFilas();
-        tablero = new TableroDeJuego(posBarraInicial, posBolaInicial, posFilasInicial); // TODO: Pedir filas a controlador
-
-        // testBarra = new Barra(240, 700, 85, 20, 540);  // TODO: Reemplazar por controlador
-        // testBola = new Bola(200, 300,30, 30, 2, 540, 590);
+        tablero = new TableroDeJuego(posBarraInicial, posBolaInicial, posFilasInicial);
 
         menu = new MenuDeJuego();
 
@@ -101,19 +89,13 @@ public class VentanaPrincipal extends JFrame {
         timer = new Timer(GAME_LOOP_DELAY, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // testBola.mover(); // TODO: Mover en el controlador
-                // tablero.setearPosicionBola(testBola.toView());  // TODO: Pedirle el view al controlador
-
                 // Movemos los elementos de juego
                 Controlador.getInstance().jugar(); Controlador.getInstance();
 
                 // Renderizamos los elementos con las nuevas posiciones
                 tablero.setearPosicionBola(Controlador.getInstance().getBola());
+                tablero.setearEstadoLadrillos(Controlador.getInstance().getFilas());
 
-
-
-                // TODO: Llamar la el metodo de jugar para mover el tablero
-                // TODO: Buscar una instancia de BolaView y LadrillosView para renderizarlos
                 tablero.repaint();
             }
         });
@@ -129,11 +111,7 @@ public class VentanaPrincipal extends JFrame {
     private void moverBarra(int codigo) {
         String direccion = (codigo == COD_DERECHA) ? "derecha" : "izquierda";
         Controlador.getInstance().moverBarra(direccion);
-        tablero.setearPosicionBarra(Controlador.getInstance().getBarra()); // TODO: Pedirle el view al controlador
-        System.out.println("Pos Barra : " + Controlador.getInstance().getBarra().getX());
-
-        // testBarra.moverBarra(direccion); // TODO: Mover en el controlador
-        // tablero.setearPosicionBarra(testBarra.toView()); // TODO: Pedirle el view al controlador
+        tablero.setearPosicionBarra(Controlador.getInstance().getBarra());
     }
 
     private void iniciarJuego() {

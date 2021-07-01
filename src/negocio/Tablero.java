@@ -10,6 +10,7 @@ import view.LadrilloView;
 import constantes.DimensionTablero;
 import constantes.DimensionesBarra;
 import constantes.DimensionesBola;
+import constantes.DimensionesLadrillo;
 
 public class Tablero {
 
@@ -20,10 +21,13 @@ public class Tablero {
     private Barra barra;
     private Bola bola;
     private ArrayList<Fila> filas; // 5 filas
+    private int aRomperFila;
+    private int aRomperCol;
 
-    public Tablero(int nivel) {
+    public Tablero(int nivel, Partida partida) {
         this.dimension_x = DimensionTablero.TAMANIO_X;
         this.dimension_y = DimensionTablero.TAMANIO_Y;
+        this.partida = partida;
 
         agregarFilas();
         crearBarra();
@@ -39,16 +43,16 @@ public class Tablero {
     }
 
     public void crearBola(int velocidad) {
-        int medioTablero = this.dimension_x / 2;
-
         this.bola = new Bola(
-            medioTablero,
-            this.dimension_y - 20,
+            // medioTablero,
+            // this.dimension_y - 20,
+            DimensionesBola.POS_INI_X,
+            DimensionesBola.POS_INI_Y,
             DimensionesBola.DIAMETRO,
             DimensionesBola.DIAMETRO,
-            DimensionesBola.VELOCIDAD_INICIAL,
+            velocidad,
             this.dimension_x,
-            this.dimension_y
+            (this.dimension_y - DimensionTablero.BORDE)
         );
     }
 
@@ -56,7 +60,7 @@ public class Tablero {
         int medioTablero = this.dimension_x / 2;
         this.barra = new Barra(
             medioTablero,
-            this.dimension_y,
+            this.dimension_y - DimensionTablero.BORDE,
             DimensionesBarra.TAMANIO_X,
             DimensionesBarra.TAMANIO_Y,
             this.dimension_x
@@ -82,10 +86,11 @@ public class Tablero {
                 partida.pierdeVida();
             }
         }
-        // else if (detectarLadrilloRoto()) { // La bola esta en algun punto central del tablero
-        //     bola.rebotarLadrillo();
-        //     romperLadrillo();
-        // }
+        else if (detectarLadrilloRoto()) { // La bola esta en algun punto central del tablero
+            System.out.println("Se rompio un ladrillo");
+            int lado = romperLadrillo();
+            bola.rebotarLadrillo(lado);
+        }
         bola.mover();
     }
 
@@ -95,19 +100,29 @@ public class Tablero {
     }
 
     public boolean detectarLadrilloRoto() {
-        Fila filaActual = buscarFila(bola.getPosicionY()); // Si colisiona con alguno
-        if (filaActual != null) {
-            return filaActual.detectarLadrilloRoto(bola.getPosicionX(), bola.getPosicionY(), bola.getTamanioX());
+        List<Fila> filasPosibles = buscarFila(bola.getPosicionY(), bola.getTamanioX()); // Si colisiona con alguno
+        for (Fila filaActual : filasPosibles) {
+            int col = filaActual.detectarLadrilloRoto(bola.getPosicionX(), bola.getPosicionY(), bola.getTamanioX());
+            if (col != -1) {
+                aRomperFila = filaActual.getIndice();
+                aRomperCol = col;
+                return true;
+            }
         }
+        aRomperFila = -1;
+        aRomperCol = -1;
         return false;
     }
 
-    public Fila buscarFila(int posY) {
-        Fila resultado = null;
+    /**
+     * Retorna array porque puede detectar por romper la fila anterior (ya rota si aun no salio
+     * de la misma)
+     */
+    public List<Fila> buscarFila(int posY, int tamanio) {
+        List<Fila> resultado = new ArrayList<>();
         for (Fila fila : this.filas) {
-            if (fila.soyLaFila(posY)) {
-                resultado = fila;
-                break;
+            if (fila.soyLaFila(posY, tamanio)) {
+                resultado.add(fila);
             }
         }
         return resultado;
@@ -115,14 +130,15 @@ public class Tablero {
 
     /**
      * Cambia el estado del ladrillo a roto y suma los puntos correspondientes
-     * a la partida
+     * a la partida.
+     * Retorna el lado por el cual choco la bola (0, 1, 2, 3)
      */
-    private void romperLadrillo() {
-        Fila aRomper = buscarFila(bola.getPosicionY());
-        if (aRomper != null) {
-            aRomper.romperLadrillo(bola.getPosicionX());
-            partida.sumarPuntos(aRomper.getPuntaje());
-        }
+    private int romperLadrillo() {
+        Fila aRomper = filas.get(aRomperFila);
+        int lado = aRomper.romperLadrillo(aRomperCol, bola.getPosicionX(), bola.getPosicionY(),  bola.getTamanioX());
+        partida.sumarPuntos(aRomper.getPuntaje());
+
+        return lado;
     }
 
     public boolean seRompieronTodosLosLadrillos() {

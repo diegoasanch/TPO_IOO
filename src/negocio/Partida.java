@@ -24,7 +24,7 @@ public class Partida {
     }
 
     public void iniciarJuego() {
-        tablero = new Tablero(nivel);
+        tablero = new Tablero(nivel, this);
         inicio = getCurrentTime();
     }
 
@@ -86,6 +86,7 @@ public class Partida {
     }
 
     public void pierdeVida() {
+        System.out.println("Pierde vida");
         modificarVidas(-1);
     }
 
