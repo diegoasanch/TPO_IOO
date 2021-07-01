@@ -70,15 +70,13 @@ public class VentanaPrincipal extends JFrame {
                 System.out.println("Pressed: " + '"' + codigo + "'");
 
                 switch (codigo) {
+                    case COD_ESPACIO:
                     case COD_P:
                         playPause();
                         break;
                     case COD_IZQUIERDA:
                     case COD_DERECHA:
                         moverBarra(codigo);
-                        break;
-                    case COD_ESPACIO:
-                        iniciarJuego();
                         break;
                     default:
                         System.out.println("Tecla sin accion");
@@ -130,17 +128,15 @@ public class VentanaPrincipal extends JFrame {
     }
 
     private void moverBarra(int codigo) {
-        String direccion = (codigo == COD_DERECHA) ? "derecha" : "izquierda";
-        Controlador.getInstance().moverBarra(direccion);
-        actualizarBarraGUI();
+        if (timer.isRunning()) { // No mover en pausa
+            String direccion = (codigo == COD_DERECHA) ? "derecha" : "izquierda";
+            Controlador.getInstance().moverBarra(direccion);
+            actualizarBarraGUI();
+        }
     }
 
     private void actualizarBarraGUI() {
         tablero.setearPosicionBarra(Controlador.getInstance().getBarra());
-    }
-
-    private void iniciarJuego() {
-        //TODO: Llamar el incio del juego
     }
 
     public void terminoElJuego () {
