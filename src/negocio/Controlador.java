@@ -77,6 +77,16 @@ public class Controlador {
         return partida.obtienePuntajeTotal();
     }
 
+    public boolean estaJugando() {
+        return partida.estaJugando();
+    }
 
+    public boolean perdioVida() {
+        return partida.perdioVida();
+    }
+
+    public void deshaceFlagVida() {
+        partida.deshaceFlagVida();
+    }
 
 }

@@ -88,7 +88,13 @@ public class VentanaPrincipal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Movemos los elementos de juego
-                Controlador.getInstance().jugar(); Controlador.getInstance();
+                Controlador.getInstance().jugar();
+
+                if (Controlador.getInstance().perdioVida() && timer != null) {
+                    // Detener el loop cuando se pierde una vida
+                    timer.stop();
+                    actualizarBarraGUI();
+                }
 
                 // Renderizamos los elementos con las nuevas posiciones
                 tablero.setearPosicionBola(Controlador.getInstance().getBola());
@@ -101,14 +107,27 @@ public class VentanaPrincipal extends JFrame {
 
     private void playPause() {
         if (timer.isRunning())
-            timer.stop();
+            pausar();
         else
-            timer.start();
+            play();
+    }
+
+    private void pausar() {
+        timer.stop();
+    }
+
+    private void play() {
+        Controlador.getInstance().deshaceFlagVida();
+        timer.start();
     }
 
     private void moverBarra(int codigo) {
         String direccion = (codigo == COD_DERECHA) ? "derecha" : "izquierda";
         Controlador.getInstance().moverBarra(direccion);
+        actualizarBarraGUI();
+    }
+
+    private void actualizarBarraGUI() {
         tablero.setearPosicionBarra(Controlador.getInstance().getBarra());
     }
 

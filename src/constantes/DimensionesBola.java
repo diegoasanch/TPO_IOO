@@ -2,7 +2,7 @@ package constantes;
 
 public final class DimensionesBola {
 
-    public static final int POS_INI_X = 270; // Release
+    public static final int POS_INI_X = 255; // Release
     public static final int POS_INI_Y = 550; // Release
     public static final int SENTIDO_INICIAL = 90; // Release
 
