@@ -10,6 +10,7 @@ import view.LadrilloView;
 import constantes.DimensionTablero;
 import constantes.DimensionesBarra;
 import constantes.DimensionesBola;
+import constantes.DimensionesLadrillo;
 
 public class Tablero {
 
@@ -51,7 +52,7 @@ public class Tablero {
             DimensionesBola.DIAMETRO,
             velocidad,
             this.dimension_x,
-            this.dimension_y
+            (this.dimension_y - DimensionTablero.BORDE)
         );
     }
 
@@ -59,7 +60,7 @@ public class Tablero {
         int medioTablero = this.dimension_x / 2;
         this.barra = new Barra(
             medioTablero,
-            this.dimension_y,
+            this.dimension_y - DimensionTablero.BORDE,
             DimensionesBarra.TAMANIO_X,
             DimensionesBarra.TAMANIO_Y,
             this.dimension_x
@@ -138,7 +139,6 @@ public class Tablero {
         partida.sumarPuntos(aRomper.getPuntaje());
 
         return lado;
-
     }
 
     public boolean seRompieronTodosLosLadrillos() {

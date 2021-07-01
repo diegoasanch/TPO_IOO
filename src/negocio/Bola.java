@@ -20,7 +20,8 @@ public class Bola extends ObjetoPosicionado {
     private Random random;
 
     public Bola(int posicionX, int posicionY, int tamanioX, int tamanioY, int velocidadInicial, int maxX, int maxY) {
-        super(posicionX, posicionY, tamanioX, tamanioY, maxX, maxY);
+        super(posicionX, maxY, tamanioX, tamanioY, maxX, maxY);
+        // super(posicionX, posicionY, tamanioX, tamanioY, maxX, maxY);
         this.velocidad = velocidadInicial * DimensionesBola.MULTIPLO_VELOCIDAD;
         this.sentido = DimensionesBola.SENTIDO_INICIAL;
         random = new Random();
@@ -57,9 +58,9 @@ public class Bola extends ObjetoPosicionado {
 
     private int anguloRebote() {
         int angulo = 0;
-        if (this.posicionX == this.minX || this.posicionX == maxX) // Rebota con laterales
+        if (this.posicionX <= this.minX || this.posicionX >= maxX) // Rebota con laterales
             angulo = 90;
-        else if (this.posicionY == this.minY)
+        else if (this.posicionY <= this.minY)
             angulo = 360;
         return angulo;
     }
