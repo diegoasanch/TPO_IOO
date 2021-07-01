@@ -41,7 +41,7 @@ public class Partida {
     }
 
     public boolean gameOver() {
-        return vida < 1; // TODO: cambiar a 1 de nuevo
+        return vida < 1;
     }
 
     public void subirNivel() {

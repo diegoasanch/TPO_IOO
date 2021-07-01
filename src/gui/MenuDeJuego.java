@@ -4,19 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.List;
-import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneLayout;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import constantes.DimensionTablero;
@@ -24,12 +16,10 @@ import negocio.Controlador;
 import view.RegistroView;
 
 public class MenuDeJuego extends JPanel {
-    private JLabel lblMenu, lblPuntaje, lblVidas, lblNivel, lblMejores, valPuntos, valVidas, valNivel, lblLeyenda;
-    private List<JLabel> mejores;
-    private JButton btnPlayPause;
+    private JLabel valPuntos, valVidas, valNivel;
     private JPanel datos, ranking;
     private JScrollPane rankingContainer;
-    private Font h1, h2, h3, h4, value;
+    private Font h1, h2, h3, value;
     private static final float CENTER = 0.5f;
 
     public MenuDeJuego() {
@@ -53,7 +43,6 @@ public class MenuDeJuego extends JPanel {
         this.add(datos);
         this.add(rankingContainer);
 
-        // this.setBackground(Color.white);
         this.setVisible(true);
         setearValores();
     }
@@ -63,7 +52,6 @@ public class MenuDeJuego extends JPanel {
         h1 = new Font(fontType, Font.BOLD, 40);
         h2 = new Font(fontType, Font.BOLD, 23);
         h3 = new Font(fontType, Font.BOLD, 20);
-        h4 = new Font(fontType, Font.BOLD, 15);
         value = new Font(fontType, Font.BOLD, 30);
     }
 
@@ -71,14 +59,14 @@ public class MenuDeJuego extends JPanel {
         datos = new JPanel();
         datos.setLayout(new BoxLayout(datos, BoxLayout.Y_AXIS));
 
-        lblMenu = new JLabel("Arkanoid");
+        JLabel lblMenu = new JLabel("Arkanoid");
         lblMenu.setFont(h1);
 
-        lblPuntaje = new JLabel("Puntaje");
+        JLabel lblPuntaje = new JLabel("Puntaje");
         lblPuntaje.setFont(h3);
-        lblVidas = new JLabel("Vidas");
+        JLabel lblVidas = new JLabel("Vidas");
         lblVidas.setFont(h3);
-        lblNivel = new JLabel ("Nivel");
+        JLabel lblNivel = new JLabel ("Nivel");
         lblNivel.setFont(h3);
 
         valPuntos = new JLabel(" ");
@@ -110,12 +98,12 @@ public class MenuDeJuego extends JPanel {
         ranking.setLayout(new BoxLayout(ranking, BoxLayout.Y_AXIS));
 
 
-        lblMejores = new JLabel("Mejores puntajes");
+        JLabel lblMejores = new JLabel("Mejores puntajes");
         lblMejores.setBorder(new EmptyBorder(15, 0, 0, 0));
         lblMejores.setFont(h2);
         lblMejores.setAlignmentX(CENTER);
 
-        lblLeyenda = new JLabel("Nombre - Puntaje");
+        JLabel lblLeyenda = new JLabel("Nombre - Puntaje");
         lblLeyenda.setFont(h3);
         lblLeyenda.setAlignmentX(CENTER);
         lblLeyenda.setForeground(new Color(80, 80, 80));

@@ -81,7 +81,6 @@ public class Tablero {
             }
             else { // La bola se sale del tablero
                 partida.pierdeVida();
-                // partida.pausar();
                 resetearBola();
             }
         }
@@ -91,11 +90,6 @@ public class Tablero {
             bola.rebotarLadrillo(lado);
         }
         bola.mover();
-    }
-
-
-    public void calcularPos() {
-        // TODO: Ver que onda esto???
     }
 
     public boolean detectarLadrilloRoto() {
