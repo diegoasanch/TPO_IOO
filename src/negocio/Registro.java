@@ -1,6 +1,9 @@
 package negocio;
 
 import java.util.*;
+
+import view.RegistroView;
+
 import java.text.SimpleDateFormat;
 
 public class Registro {
@@ -44,5 +47,8 @@ public class Registro {
         return nombre+" "+puntos+" "+duracionPartida+" "+getFechaFormateada();
     }
 
+    public RegistroView toView() {
+        return new RegistroView(nombre, puntos, duracionPartida, getFechaFormateada());
+    }
 }
 

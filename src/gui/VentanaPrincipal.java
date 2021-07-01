@@ -11,6 +11,7 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
+import constantes.DimensionTablero;
 import negocio.Controlador;
 
 import view.BarraView;
@@ -50,7 +51,7 @@ public class VentanaPrincipal extends JFrame {
         paneles.setEnabled(false); // Para que no se pueda modificar el tamanio
 
         this.add(paneles);
-        this.setSize(800, 650);
+        this.setSize(DimensionTablero.WINDOW_X, DimensionTablero.WINDOW_Y);
         this.setResizable(false);
         this.setVisible(true);
 
@@ -98,15 +99,12 @@ public class VentanaPrincipal extends JFrame {
                 }
                 if (Controlador.getInstance().gameOver()) {
                     terminoElJuego();
-                    // abrir al popup
-                    //  - Al apretar el boton enviar el texto a controlador
-                    // Frenar el timer
-
                 }
 
                 // Renderizamos los elementos con las nuevas posiciones
                 tablero.setearPosicionBola(Controlador.getInstance().getBola());
                 tablero.setearEstadoLadrillos(Controlador.getInstance().getFilas());
+                menu.mostrarMejores(Controlador.getInstance().getRanking());
 
                 menu.setearValores();
 
