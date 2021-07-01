@@ -7,4 +7,8 @@ public final class DimensionTablero {
     public static final int TAMANIO_Y = 590;
 
     public static final int BORDE = 10;
+
+    public static final int WINDOW_X = 800;
+
+    public static final int WINDOW_Y = 650;
 }

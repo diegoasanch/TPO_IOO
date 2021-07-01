@@ -3,6 +3,9 @@ package negocio;
 import view.BarraView;
 import view.BolaView;
 import view.FilasView;
+import view.RegistroView;
+
+import java.util.List;
 
 public class Controlador {
 
@@ -102,6 +105,10 @@ public class Controlador {
 
     public void reiniciarJuego() {
         comienzaJuego();
+    }
+
+    public List<RegistroView> getRanking() {
+        return TopTwenty.getInstance().toView();
     }
 
 }

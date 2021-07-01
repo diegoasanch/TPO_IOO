@@ -2,6 +2,8 @@ package negocio;
 
 import java.util.*;
 
+import view.RegistroView;
+
 public class TopTwenty {
 
     private ArrayList<Registro> mejoresVeinte;
@@ -51,7 +53,6 @@ public class TopTwenty {
             int duracion = partidaActual.calcularDuracionPartida();
             agregarRecord(nombre, puntaje, duracion);
         }
-        testShowLeaderboard();
     }
 
     private void insertarOrdenado(Registro nuevoRegistro) {
@@ -69,9 +70,12 @@ public class TopTwenty {
         return posicion;
     }
 
-    private void testShowLeaderboard() {
+    public List<RegistroView> toView() {
+        List<RegistroView> resultado = new ArrayList<>();
         for (Registro reg : mejoresVeinte) {
             System.out.println("Jugador: " + reg.getNombre() + "  -  Puntaje: " + reg.getPuntos());
+            resultado.add(reg.toView());
         }
+        return resultado;
     }
 }

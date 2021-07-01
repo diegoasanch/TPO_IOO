@@ -3,6 +3,8 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.List;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -15,12 +17,20 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneLayout;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
+import constantes.DimensionTablero;
 import negocio.Controlador;
+import view.RegistroView;
 
 public class MenuDeJuego extends JPanel {
-    private JLabel lblMenu, lblPuntaje, lblVidas, lblNivel, lblMejores, valPuntos, valVidas, valNivel;
+    private JLabel lblMenu, lblPuntaje, lblVidas, lblNivel, lblMejores, valPuntos, valVidas, valNivel, lblLeyenda;
+    private List<JLabel> mejores;
     private JButton btnPlayPause;
+    private JPanel datos, ranking;
+    private JScrollPane rankingContainer;
+    private Font h1, h2, h3, h4, value;
+    private static final float CENTER = 0.5f;
 
     public MenuDeJuego() {
         super();
@@ -29,56 +39,105 @@ public class MenuDeJuego extends JPanel {
 
     private void configurar() {
 
-        this.setVisible(true);
+        configurarFuentes();
+        configurarDatos();
+        configurarRanking();
 
-        String fontType = "Arial";
+        this.setSize(new Dimension(
+            DimensionTablero.WINDOW_X - DimensionTablero.TAMANIO_X,
+            500
+        ));
+        rankingContainer = new JScrollPane(ranking);
+
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        Font h1 = new Font(fontType, Font.BOLD, 40);
-        Font h2 = new Font(fontType, Font.BOLD, 20);
-        Font value = new Font(fontType, Font.BOLD, 30);
+        this.add(datos);
+        this.add(rankingContainer);
+
+        // this.setBackground(Color.white);
+        this.setVisible(true);
+        setearValores();
+    }
+
+    private void configurarFuentes() {
+        String fontType = "Arial";
+        h1 = new Font(fontType, Font.BOLD, 40);
+        h2 = new Font(fontType, Font.BOLD, 23);
+        h3 = new Font(fontType, Font.BOLD, 20);
+        h4 = new Font(fontType, Font.BOLD, 15);
+        value = new Font(fontType, Font.BOLD, 30);
+    }
+
+    private void configurarDatos() {
+        datos = new JPanel();
+        datos.setLayout(new BoxLayout(datos, BoxLayout.Y_AXIS));
 
         lblMenu = new JLabel("Arkanoid");
         lblMenu.setFont(h1);
 
         lblPuntaje = new JLabel("Puntaje");
-        lblPuntaje.setFont(h2);
+        lblPuntaje.setFont(h3);
         lblVidas = new JLabel("Vidas");
-        lblVidas.setFont(h2);
+        lblVidas.setFont(h3);
         lblNivel = new JLabel ("Nivel");
-        lblNivel.setFont(h2);
-        lblMejores = new JLabel("Mejores puntajes");
-        lblMejores.setFont(h2);
+        lblNivel.setFont(h3);
 
-        valPuntos = new JLabel("xxxx");
+        valPuntos = new JLabel(" ");
         valPuntos.setFont(value);
-        valVidas = new JLabel("xxxx");
+        valVidas = new JLabel(" ");
         valVidas.setFont(value);
-        valNivel = new JLabel ("xxxx");
+        valNivel = new JLabel (" ");
         valNivel.setFont(value);
 
-        //btnPlayPause = new JButton("Play/Pausa");
-        float center = 0.5f;
-        lblMenu.setAlignmentX(center);
-        lblPuntaje.setAlignmentX(center);
-        lblVidas.setAlignmentX(center);
-        valPuntos.setAlignmentX(center);
-        valVidas.setAlignmentX(center);
-        // btnPlayPause.setAlignmentX(center);
-        lblNivel.setAlignmentX(center);
-        valNivel.setAlignmentX(center);
-        lblMejores.setAlignmentX(center);
+        lblMenu.setAlignmentX(CENTER);
+        lblPuntaje.setAlignmentX(CENTER);
+        lblVidas.setAlignmentX(CENTER);
+        valPuntos.setAlignmentX(CENTER);
+        valVidas.setAlignmentX(CENTER);
+        lblNivel.setAlignmentX(CENTER);
+        valNivel.setAlignmentX(CENTER);
 
-        this.add(lblMenu);
-        this.add(lblNivel);
-        this.add(valNivel);
-        this.add(lblVidas);
-        this.add(valVidas);
-        this.add(lblPuntaje);
-        this.add(valPuntos);
-        this.add(lblMejores);
-        // this.add(btnPlayPause);
-        this.setBackground(Color.white);
+        datos.add(lblMenu);
+        datos.add(lblNivel);
+        datos.add(valNivel);
+        datos.add(lblVidas);
+        datos.add(valVidas);
+        datos.add(lblPuntaje);
+        datos.add(valPuntos);
+    }
 
+    private void configurarRanking() {
+        ranking = new JPanel();
+        ranking.setLayout(new BoxLayout(ranking, BoxLayout.Y_AXIS));
+
+
+        lblMejores = new JLabel("Mejores puntajes");
+        lblMejores.setBorder(new EmptyBorder(15, 0, 0, 0));
+        lblMejores.setFont(h2);
+        lblMejores.setAlignmentX(CENTER);
+
+        lblLeyenda = new JLabel("Nombre - Puntaje");
+        lblLeyenda.setFont(h3);
+        lblLeyenda.setAlignmentX(CENTER);
+        lblLeyenda.setForeground(new Color(80, 80, 80));
+        lblLeyenda.setBorder(new EmptyBorder(0, 0, 15, 0));
+
+        ranking.add(lblMejores);
+        ranking.add(lblLeyenda);
+    }
+
+    public void mostrarMejores(List<RegistroView> registros) {
+        this.remove(rankingContainer);
+        configurarRanking();
+        JLabel actual;
+        int i = 1;
+        for (RegistroView reg : registros) {
+            actual = new JLabel(i++ + ". " + reg.getNombre() + "  -  " + reg.getPuntaje());
+            actual.setFont(h3);
+            actual.setAlignmentX(CENTER);
+            ranking.add(actual);
+        }
+        rankingContainer = new JScrollPane(ranking);
+        this.add(rankingContainer);
     }
 
     public void setearValores() {

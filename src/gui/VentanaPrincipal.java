@@ -11,6 +11,7 @@ import javax.swing.JSplitPane;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
+import constantes.DimensionTablero;
 import negocio.Controlador;
 
 import view.BarraView;
@@ -50,7 +51,7 @@ public class VentanaPrincipal extends JFrame {
         paneles.setEnabled(false); // Para que no se pueda modificar el tamanio
 
         this.add(paneles);
-        this.setSize(800, 650);
+        this.setSize(DimensionTablero.WINDOW_X, DimensionTablero.WINDOW_Y);
         this.setResizable(false);
         this.setVisible(true);
 
@@ -69,15 +70,13 @@ public class VentanaPrincipal extends JFrame {
                 System.out.println("Pressed: " + '"' + codigo + "'");
 
                 switch (codigo) {
+                    case COD_ESPACIO:
                     case COD_P:
                         playPause();
                         break;
                     case COD_IZQUIERDA:
                     case COD_DERECHA:
                         moverBarra(codigo);
-                        break;
-                    case COD_ESPACIO:
-                        iniciarJuego();
                         break;
                     default:
                         System.out.println("Tecla sin accion");
@@ -98,15 +97,12 @@ public class VentanaPrincipal extends JFrame {
                 }
                 if (Controlador.getInstance().gameOver()) {
                     terminoElJuego();
-                    // abrir al popup
-                    //  - Al apretar el boton enviar el texto a controlador
-                    // Frenar el timer
-
                 }
 
                 // Renderizamos los elementos con las nuevas posiciones
                 tablero.setearPosicionBola(Controlador.getInstance().getBola());
                 tablero.setearEstadoLadrillos(Controlador.getInstance().getFilas());
+                menu.mostrarMejores(Controlador.getInstance().getRanking());
 
                 menu.setearValores();
 
@@ -132,17 +128,15 @@ public class VentanaPrincipal extends JFrame {
     }
 
     private void moverBarra(int codigo) {
-        String direccion = (codigo == COD_DERECHA) ? "derecha" : "izquierda";
-        Controlador.getInstance().moverBarra(direccion);
-        actualizarBarraGUI();
+        if (timer.isRunning()) { // No mover en pausa
+            String direccion = (codigo == COD_DERECHA) ? "derecha" : "izquierda";
+            Controlador.getInstance().moverBarra(direccion);
+            actualizarBarraGUI();
+        }
     }
 
     private void actualizarBarraGUI() {
         tablero.setearPosicionBarra(Controlador.getInstance().getBarra());
-    }
-
-    private void iniciarJuego() {
-        //TODO: Llamar el incio del juego
     }
 
     public void terminoElJuego () {
